@@ -1,0 +1,6 @@
+Context: Restaurant retrieval from a SQLite database. Read AI4SE_Labs_2026/Week_03_Prompting/Submission/inputs/questions.csv, AI4SE_Labs_2026/Week_03_Prompting/Submission/inputs/restaurants-schema.csv, and AI4SE_Labs_2026/Week_03_Prompting/Submission/inputs/examples.md.
+Objective: Translate every question into one SQLite SELECT returning house number and restaurant name. Ignore unrelated text and preserve duplicates.
+Style: Precise SQL.
+Tone: Concise.
+Audience: An automated evaluator.
+Response: Save id,question,predicted_sql to AI4SE_Labs_2026/Week_03_Prompting/Submission/predictions/co_star.csv. Run python3 AI4SE_Labs_2026/Week_03_Prompting/Submission/src/check_predictions.py AI4SE_Labs_2026/Week_03_Prompting/Submission/predictions/co_star.csv and save the checker output to AI4SE_Labs_2026/Week_03_Prompting/Submission/results/co_star.checker.txt. Fix failing queries and rerun the checker until all 155 pass. The checker archives every attempt. Do not read reference answers or other agents’ files. If progress becomes impossible, report the unresolved issue.

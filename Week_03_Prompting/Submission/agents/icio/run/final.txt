@@ -1,0 +1,6 @@
+Created:
+
+- [icio.csv](AI4SE_Labs_2026/Week_03_Prompting/Submission/predictions/icio.csv)
+- [icio.checker.txt](AI4SE_Labs_2026/Week_03_Prompting/Submission/results/icio.checker.txt)
+
+The checker was run 10 times. Current result: **141/155 passed (90.97%)**. Fourteen queries remain unresolved, primarily address-parsing cases and the unrelated-text query at ID 65.

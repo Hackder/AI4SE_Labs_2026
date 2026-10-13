@@ -1,0 +1,17 @@
+Accuracy: 0.9097 (90.97%)
+Correct: 141/155
+Attempt: 9
+FAIL id=10 expected_count=1 actual_count=0 error=None
+FAIL id=11 expected_count=2 actual_count=0 error=None
+FAIL id=12 expected_count=1 actual_count=0 error=None
+FAIL id=14 expected_count=1 actual_count=0 error=None
+FAIL id=22 expected_count=62 actual_count=60 error=None
+FAIL id=25 expected_count=154 actual_count=153 error=None
+FAIL id=27 expected_count=62 actual_count=60 error=None
+FAIL id=29 expected_count=37 actual_count=40 error=None
+FAIL id=34 expected_count=18 actual_count=19 error=None
+FAIL id=65 expected_count=2696 actual_count=9151 error=None
+FAIL id=87 expected_count=42 actual_count=0 error=None
+FAIL id=120 expected_count=2 actual_count=3 error=None
+FAIL id=129 expected_count=37 actual_count=36 error=None
+FAIL id=130 expected_count=3 actual_count=0 error=None

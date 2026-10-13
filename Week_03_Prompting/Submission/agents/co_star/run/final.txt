@@ -1,0 +1,6 @@
+Created:
+
+- [co_star.csv](AI4SE_Labs_2026/Week_03_Prompting/Submission/predictions/co_star.csv)
+- [co_star.checker.txt](AI4SE_Labs_2026/Week_03_Prompting/Submission/results/co_star.checker.txt)
+
+Checker result: 147/155 passed. Eight queries remain unresolved: IDs 22, 25, 27, 29, 34, 65, 120, and 130.

@@ -1,0 +1,6 @@
+Created:
+
+- [rtf.csv](AI4SE_Labs_2026/Week_03_Prompting/Submission/predictions/rtf.csv)
+- [rtf.checker.txt](AI4SE_Labs_2026/Week_03_Prompting/Submission/results/rtf.checker.txt)
+
+Checker result: 141/155 passed. 14 queries remain unresolved, mainly involving ambiguous street/city matching, duplicate handling, and the unrelated-text row.
