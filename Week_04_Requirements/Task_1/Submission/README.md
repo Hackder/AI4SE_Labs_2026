@@ -1,5 +1,7 @@
 # req-refinery
 
+**Report: [report/report.pdf](report/report.pdf)**
+
 LangGraph agentic network that turns the document corpus in `../data/corpus/` into one
 requirements specification.
 
