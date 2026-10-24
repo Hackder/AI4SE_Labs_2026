@@ -1,0 +1,12 @@
+[
+ {"run": "20261024_165734", "grade": 5, "accurate": 11, "wrong_sources": 10, "missing12": 12, "partial12": 0, "merge_items": 25},
+ {"run": "20261024_172523", "grade": 6, "accurate": 21, "wrong_sources": 9, "missing12": 3, "partial12": 0, "merge_items": 45},
+ {"run": "20261024_174514", "grade": 6.5, "accurate": 22, "wrong_sources": 7, "missing12": 3, "partial12": 0, "merge_items": 35},
+ {"run": "20261024_183024", "grade": 6.5, "accurate": 22, "wrong_sources": 6, "missing12": 5, "partial12": 2, "merge_items": 40},
+ {"run": "baseline", "grade": 6, "accurate": 24, "wrong_sources": 4, "missing12": 8, "partial12": 2, "merge_items": 4},
+ {"run": "20261024_184705_hybrid", "grade": 7, "accurate": 23, "wrong_sources": 5, "missing12": 3, "partial12": 3, "merge_items": 20},
+ {"run": "20261024_191559_hybrid", "grade": 7.5, "accurate": 23, "wrong_sources": 2, "missing12": 0, "partial12": 0, "merge_items": 15},
+ {"run": "20261024_194017_hybrid", "grade": 7.5, "accurate": 23, "wrong_sources": 2, "missing12": 0, "partial12": 0, "merge_items": 15},
+ {"run": "20261024_202345_hybrid", "grade": 7.5, "accurate": 24, "wrong_sources": 1, "missing12": 0, "partial12": 0, "merge_items": 20},
+ {"run": "20261024_203609_network", "grade": 7, "accurate": 17, "partial_accurate": 8, "wrong_sources": 2, "missing12": 0, "partial12": 0, "merge_items": 25}
+]

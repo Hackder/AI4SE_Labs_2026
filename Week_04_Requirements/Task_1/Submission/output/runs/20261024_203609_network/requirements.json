@@ -1,0 +1,2558 @@
+{
+  "metadata": {
+    "generated_at": "2026-10-24T20:46:42.274+02:00",
+    "graph": "network",
+    "system_name": "the library management and reporting system",
+    "run_dir": "/Users/jurajpetras/school-mag/vibecoding/AI4SE_Labs_2026/Week_04_Requirements/Task_1/Submission/output/runs/20261024_203609_network",
+    "source_attribution": {
+      "citations_before": 446,
+      "citations_after": 393,
+      "citations_added": 32,
+      "citations_removed": 85,
+      "sources_unverified": 0,
+      "missed": 6
+    },
+    "models": {
+      "extract": "gpt-5.6-luna",
+      "merge_dedup": "gpt-5.6-luna",
+      "consolidate": "gpt-6-luna",
+      "assign_unassigned": "gpt-5-mini",
+      "document_pass": "gpt-5.6-luna",
+      "prioritize": "gpt-6-luna",
+      "review": "gpt-6-luna",
+      "resolve_issue": "gpt-5.6-luna"
+    },
+    "review_rounds": 5,
+    "max_rounds": 5
+  },
+  "documents": [
+    {
+      "id": "D01",
+      "path": "conversations/conv_pines014_material_volume.eml"
+    },
+    {
+      "id": "D02",
+      "path": "conversations/conv_pines015_capacity_interface.eml"
+    },
+    {
+      "id": "D03",
+      "path": "conversations/conv_pines016_shelf_space.eml"
+    },
+    {
+      "id": "D04",
+      "path": "conversations/conv_pines018_item_transfer.eml"
+    },
+    {
+      "id": "D05",
+      "path": "conversations/conv_pines019_020_missing_intransit.eml"
+    },
+    {
+      "id": "D06",
+      "path": "conversations/conv_pines021_item_purging.eml"
+    },
+    {
+      "id": "D07",
+      "path": "conversations/conv_pines022_deletions.eml"
+    },
+    {
+      "id": "D08",
+      "path": "conversations/conv_pines023_patron_characteristics.eml"
+    },
+    {
+      "id": "D09",
+      "path": "conversations/conv_pines024_inactive_patrons.eml"
+    },
+    {
+      "id": "D10",
+      "path": "early_draft_srs_galecia.txt"
+    },
+    {
+      "id": "D11",
+      "path": "email_financial_reports.eml"
+    },
+    {
+      "id": "D12",
+      "path": "email_report_features.eml"
+    },
+    {
+      "id": "D13",
+      "path": "email_staff_login.eml"
+    },
+    {
+      "id": "D14",
+      "path": "evergreen_reference_2009.txt"
+    },
+    {
+      "id": "D15",
+      "path": "interview_cataloging_2009-05-08.txt"
+    },
+    {
+      "id": "D16",
+      "path": "interview_sysadmin_2009-05-10.txt"
+    },
+    {
+      "id": "D17",
+      "path": "meeting_minutes/meeting_2009-03-15_minutes.txt"
+    },
+    {
+      "id": "D18",
+      "path": "meeting_minutes/meeting_2009-07-20_minutes.txt"
+    },
+    {
+      "id": "D19",
+      "path": "meeting_tech_subcommittee_2009-06-30.txt"
+    },
+    {
+      "id": "D20",
+      "path": "survey_results_2009.txt"
+    }
+  ],
+  "priority_scale": {
+    "High": "Core to the system's purpose or requested by many stakeholders; the system is not acceptable without it.",
+    "Medium": "Clearly valuable and requested, but the system can go live without it and add it in a later release.",
+    "Low": "Nice to have, requested by a single stakeholder or marginal to the core workflows; implement only if time allows."
+  },
+  "glossary": [
+    {
+      "term": "branch",
+      "definition": "A physical library service point or other managed library location."
+    },
+    {
+      "term": "library system",
+      "definition": "The organization or consortium that contains and manages multiple branches."
+    },
+    {
+      "term": "item",
+      "definition": "A physical or uncataloged material record managed by the system."
+    },
+    {
+      "term": "patron",
+      "definition": "A person with a library account."
+    },
+    {
+      "term": "report",
+      "definition": "A generated presentation or export of queried system data."
+    },
+    {
+      "term": "circulation",
+      "definition": "A transaction involving checkout, check-in, renewal, hold activity, or related material use."
+    },
+    {
+      "term": "hold",
+      "definition": "A patron request to reserve or obtain an item."
+    },
+    {
+      "term": "status",
+      "definition": "The operational condition assigned to an item or record, such as missing, damaged, or discard/weed."
+    },
+    {
+      "term": "OPAC",
+      "definition": "The Online Public Access Catalog through which patrons access catalog, hold, and circulation functions."
+    },
+    {
+      "term": "MARC",
+      "definition": "The machine-readable cataloging data format used for bibliographic fields."
+    },
+    {
+      "term": "TCN",
+      "definition": "A title control number used to identify a bibliographic record."
+    },
+    {
+      "term": "WorldCat",
+      "definition": "An external union catalog used for bibliographic and holdings updates."
+    },
+    {
+      "term": "CSV",
+      "definition": "A comma-separated values file format used for data export."
+    },
+    {
+      "term": "role",
+      "definition": "A named security assignment that determines a user's permissions."
+    },
+    {
+      "term": "library automation system",
+      "definition": "The enterprise system providing acquisitions, cataloging, circulation, and related library records."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R001",
+      "name": "Collection And Material Use Reports",
+      "description": "The reports interface must enable authorized managers, administrators, and staff to analyze collections and material use for planning, evaluation, and oversight.",
+      "source_doc_ids": [
+        "D01",
+        "D03",
+        "D05",
+        "D06",
+        "D08",
+        "D10",
+        "D12",
+        "D14",
+        "D15",
+        "D17",
+        "D18",
+        "D20"
+      ],
+      "priority": "High",
+      "priority_justification": "Seven source documents call for collection and material-use analysis, and managers depend on it to plan, evaluate, and oversee collections.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R002",
+      "name": "Consortium Scale",
+      "description": "The system must support a library consortium with 286 branches, 17 million annual circulations, and purchasing and processing exceeding 900,000 items per year.",
+      "source_doc_ids": [
+        "D02",
+        "D10",
+        "D17",
+        "D18"
+      ],
+      "priority": "High",
+      "priority_justification": "D10 marks OE-1 High Priority, and consortium-scale support is necessary for the system to serve its stated 286-branch environment.",
+      "origin": "merge",
+      "source_priority_note": "D10 marks OE-1 High Priority"
+    },
+    {
+      "id": "R003",
+      "name": "Cross-Branch Performance Reports",
+      "description": "The reports interface must enable analysis of performance across branches.",
+      "source_doc_ids": [
+        "D03",
+        "D10",
+        "D18"
+      ],
+      "priority": "High",
+      "priority_justification": "Cross-branch performance analysis is repeatedly requested across seven documents and supports oversight of the consortium as a whole.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R004",
+      "name": "Role-Based Transfer Access",
+      "description": "Administrators must control rights through security groups and roles assigned to individuals, workgroups, and arbitrary staff groups, with changes to role assignments changing permissions. The library automation system must support Global Admin, Local Admin, Library Manager, Staff, and indirect Patron access through the OPAC, with report and transfer permissions appropriate to each role and transfers restricted to authorized roles, including managers, administrators, and transfer coordinators.",
+      "source_doc_ids": [
+        "D04",
+        "D10",
+        "D12",
+        "D13",
+        "D14",
+        "D16",
+        "D18",
+        "D19"
+      ],
+      "priority": "High",
+      "priority_justification": "D10 marks CO-4 High Priority, and D16 identifies role-based access control as essential; without it, staff cannot be reliably limited to authorized reporting and transfer actions.",
+      "origin": "folded",
+      "source_priority_note": "D10 marks CO-4 High Priority; D16's interview notes describe role-based access control as essential"
+    },
+    {
+      "id": "R005",
+      "name": "Collection Analysis Reports",
+      "description": "The system must provide reports on weeding data, collection age, collection value, and last-copy status. Collection-value reports must use purchase-price or other item-record data and cover the entire collection or selected portions, including status- or collection-based selections such as longoverdue items or children's DVDs. Last-copy reports must identify items that are the only copy within a selected branch, library system, consortium, bibliographic work, or collection grouping, including deleted last copies where applicable, so catalogers can update WorldCat and avoid inappropriate deletion.",
+      "source_doc_ids": [
+        "D06",
+        "D10",
+        "D11",
+        "D14",
+        "D15",
+        "D18"
+      ],
+      "priority": "High",
+      "priority_justification": "D06 and D15 explicitly mark last-copy reporting critical, and these reports help catalogers avoid inappropriate deletion while supporting collection decisions.",
+      "origin": "granularity",
+      "source_priority_note": "D06 marks last-copy reporting critical; D15 marks the last-copy report as critical"
+    },
+    {
+      "id": "R006",
+      "name": "Item Status and Activity Reports",
+      "description": "The system must provide reports on items that are missing, overdue, in transit, claimed returned, selected by use count, or associated with a fines-stopped reason.",
+      "source_doc_ids": [
+        "D05",
+        "D06",
+        "D10",
+        "D14",
+        "D15",
+        "D18"
+      ],
+      "priority": "High",
+      "priority_justification": "Missing-item reporting is required by the fixed requirements, and the broader status reports also help staff manage overdue and in-transit materials.",
+      "origin": "granularity",
+      "source_priority_note": null
+    },
+    {
+      "id": "R007",
+      "name": "Missing Damaged Reports",
+      "description": "The system must report missing and damaged items by branch, including condition notes such as water damage or vandalism and selectable periods such as the preceding 30 days or last quarter.",
+      "source_doc_ids": [
+        "D05",
+        "D10",
+        "D15",
+        "D18"
+      ],
+      "priority": "High",
+      "priority_justification": "D05 calls the per-branch report crucial for accountability, and four additional sources request missing or damaged item reporting.",
+      "origin": "merge",
+      "source_priority_note": "D05 calls the per-branch missing/damaged report crucial for accountability"
+    },
+    {
+      "id": "R008",
+      "name": "Transit Report Suite",
+      "description": "The system must provide reports for items in transit to a destination branch and items in transit by sending branch, including one report combining transit-to and transit-from items that have remained in transit longer than a configurable threshold, defaulting to seven days where specified, using a null arrival date and an overdue departure date; results must be available by branch and library system and sortable by due date.",
+      "source_doc_ids": [
+        "D05",
+        "D10",
+        "D15",
+        "D18"
+      ],
+      "priority": "High",
+      "priority_justification": "D18 describes in-transit item reports as critical for delivery coordination, and delayed or untracked transfers can disrupt service across branches.",
+      "origin": "folded",
+      "source_priority_note": "D18 describes in-transit item reports as critical for delivery coordination"
+    },
+    {
+      "id": "R009",
+      "name": "Activity and Traffic Cross-Tabulation",
+      "description": "The system must provide activity, traffic, and usage reports showing counts of checkouts, check-ins, holds placed, and holds filled, cross-tabulated by terminal, branch, library system, hour, patron age range, patron type, and patron location, and must classify hold-request counts by placement method, including staff desk, public computer, and remote placement.",
+      "source_doc_ids": [
+        "D08",
+        "D10",
+        "D12",
+        "D20"
+      ],
+      "priority": "High",
+      "priority_justification": "Five source documents request these usage measures, and without cross-tabulation managers lose a key way to compare activity across branches, systems, and patron groups.",
+      "origin": "resolved",
+      "source_priority_note": null
+    },
+    {
+      "id": "R010",
+      "name": "Checkout and Renewal Reports",
+      "description": "The system must provide checkout and renewal reports that count transactions individually and cumulatively by staff checkout, self-checkout, staff renewal, self-checkout renewal, online renewal, and OPAC renewal.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D20"
+      ],
+      "priority": "High",
+      "priority_justification": "Checkout and renewal counts directly support the fixed requirement for item-use reporting and help managers understand how materials are used.",
+      "origin": "granularity",
+      "source_priority_note": null
+    },
+    {
+      "id": "R011",
+      "name": "Background Report Processing",
+      "description": "Long-running reports, including inactive patron reports in environments with approximately 3.5 million patrons, must execute as background operations or through a queue without occupying the user interface, and the system must cache slow activity-query results for reuse.",
+      "source_doc_ids": [
+        "D09",
+        "D10",
+        "D12",
+        "D14",
+        "D16",
+        "D18",
+        "D20"
+      ],
+      "priority": "High",
+      "priority_justification": "The fixed open-hours performance requirement calls for reports not to disrupt other services, and background processing helps meet that need for large, slow queries.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R012",
+      "name": "Accounting Data Retention",
+      "description": "The system must archive financial data according to state and local requirements and enforce applicable retention policies, including seven years of audit data where required.",
+      "source_doc_ids": [
+        "D10",
+        "D11"
+      ],
+      "priority": "High",
+      "priority_justification": "Applicable financial retention rules, including required audit-data periods, must be enforced to support accountable records management.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R013",
+      "name": "Assistive Technology Access",
+      "description": "The system must satisfy Section 508 accessibility requirements and support screen readers including JAWS and NVDA, screen magnification including ZoomText, and other assistive technologies; web output must include appropriate alt tags, ARIA labels, semantic structure, and standards-compliant HTML.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D16",
+        "D18",
+        "D19"
+      ],
+      "priority": "High",
+      "priority_justification": "D16 and D18 identify Section 508 accessibility as a legal requirement and mandatory, making assistive-technology access a compliance obligation.",
+      "origin": "merge",
+      "source_priority_note": "D10 marks OE-5 High Priority; D16 describes Section 508 compliance as non-negotiable and a legal requirement; D18 describes this as a legal requirement and says Section 508 compliance is mandatory"
+    },
+    {
+      "id": "R014",
+      "name": "Branch Management Reports and Templates",
+      "description": "The system must provide predefined reports and report templates needed to cover the management reporting needs of all consortium member branches.",
+      "source_doc_ids": [
+        "D10",
+        "D12",
+        "D14",
+        "D17",
+        "D18"
+      ],
+      "priority": "High",
+      "priority_justification": "Multiple source documents request management reports for consortium branches, and without suitable reports and templates branch managers would lack a consistent way to meet routine oversight needs.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R015",
+      "name": "Client And Browser Access",
+      "description": "The system must be accessible through a web browser or Windows-compatible client and support Microsoft Internet Explorer 6.0 or later and Mozilla Firefox 2.0 or later.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D16",
+        "D18"
+      ],
+      "priority": "High",
+      "priority_justification": "D10 marks OE-3 High Priority and D18 calls browser/client access critical, so staff access to the system depends on this capability.",
+      "origin": "merge",
+      "source_priority_note": "D10 marks OE-3 High Priority; D10 marks OE-4 Medium Priority; D18 marks this capability critical"
+    },
+    {
+      "id": "R016",
+      "name": "Cross-Record Query Designer",
+      "description": "The system must provide a user-friendly query designer across bibliographic, item, patron, transaction, financial, and other record types, with selectable fields, picklists, regular-expression choices, and Boolean operators.",
+      "source_doc_ids": [
+        "D06",
+        "D10",
+        "D12",
+        "D14",
+        "D20"
+      ],
+      "priority": "High",
+      "priority_justification": "A cross-record query designer lets staff build reports across the system's principal data areas, and without it many requested analyses would require custom work.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R017",
+      "name": "Data Archiving Compliance",
+      "description": "Data archiving must comply with standard accounting practices and state, county, and municipal auditing requirements.",
+      "source_doc_ids": [
+        "D10",
+        "D11"
+      ],
+      "priority": "High",
+      "priority_justification": "D10 and D11 require compliant financial-data archiving for auditing, so noncompliant archiving would fail the stated records obligations.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R018",
+      "name": "Financial Report Compliance",
+      "description": "Financial reports must comply with standard accounting practices and state, county, and municipal auditing requirements.",
+      "source_doc_ids": [
+        "D10",
+        "D11"
+      ],
+      "priority": "High",
+      "priority_justification": "D10 and D11 require financial reports to meet accounting practices and government auditing requirements, so reports that fail those standards would not meet the stated obligation.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R019",
+      "name": "Integrated Accessible System Help",
+      "description": "The system must provide hierarchical, cross-linked, searchable HTML help that describes and illustrates system functions, is accessible within the system and to screen readers, and includes integrated online help for the reporting interface.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D16",
+        "D18",
+        "D19"
+      ],
+      "priority": "High",
+      "priority_justification": "D10 marks UD-3 High Priority, and accessible, searchable help lets staff learn and use reporting functions without relying solely on direct support.",
+      "origin": "folded",
+      "source_priority_note": "D10 marks UD-3 High Priority"
+    },
+    {
+      "id": "R020",
+      "name": "Management Reporting Scope",
+      "description": "The reporting functionality must support management planning, evaluation, and oversight rather than day-to-day patron-facing functions handled by the OPAC and circulation client.",
+      "source_doc_ids": [
+        "D03",
+        "D05",
+        "D06",
+        "D08",
+        "D10",
+        "D14",
+        "D15",
+        "D16",
+        "D17",
+        "D18",
+        "D19"
+      ],
+      "priority": "High",
+      "priority_justification": "Five sources define management planning, evaluation, and oversight as the reporting system's scope, distinguishing it from patron-facing operations.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R021",
+      "name": "OPAC Preservation",
+      "description": "Management and reporting functionality must not constrain, slow, or adversely affect OPAC functionality or patron access.",
+      "source_doc_ids": [
+        "D10",
+        "D16",
+        "D18",
+        "D19"
+      ],
+      "priority": "High",
+      "priority_justification": "D10 marks CO-5 High Priority, and management reporting that degrades patron access would compromise the underlying library service.",
+      "origin": "merge",
+      "source_priority_note": "D10 marks CO-5 High Priority; D16's interview notes describe separation of reporting from the OPAC as critical"
+    },
+    {
+      "id": "R022",
+      "name": "Open-Hours Reporting Performance",
+      "description": "Searches and reports must run during open or peak hours without disrupting circulation, other system functions, or the OPAC; background queues, a separate reporting database or replica, or equivalent isolation must prevent excessive contention with the production database when needed.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D16",
+        "D18",
+        "D19",
+        "D20"
+      ],
+      "priority": "High",
+      "priority_justification": "Because five source documents request this capability and reports that disrupt circulation or OPAC access would undermine core library operations, isolation is needed for the system to remain usable during open hours.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R023",
+      "name": "Patron Information Removal",
+      "description": "The system must remove personally identifying information about patrons from retained transaction data.",
+      "source_doc_ids": [
+        "D10",
+        "D12"
+      ],
+      "priority": "High",
+      "priority_justification": "D12 identifies patron-privacy protection as a compliance requirement, so retained transaction data must have personally identifying information removed.",
+      "origin": "split",
+      "source_priority_note": "D12 identifies State-law retention and patron-privacy protection as compliance requirements"
+    },
+    {
+      "id": "R024",
+      "name": "Payment Audit Ledger",
+      "description": "The system must maintain a payment ledger identifying the charge or charges to which each patron payment was applied so payments can be traced and reconciled.",
+      "source_doc_ids": [
+        "D10",
+        "D11"
+      ],
+      "priority": "High",
+      "priority_justification": "D11 marks the payment ledger CRITICAL, and tracing applied payments is needed to reconcile patron financial records.",
+      "origin": "merge",
+      "source_priority_note": "D11 marks this requirement CRITICAL"
+    },
+    {
+      "id": "R025",
+      "name": "Record Data Specifications",
+      "description": "The product must provide complete data specifications and dictionaries for authority, bibliographic, order, item, hold/request, and other accessed records, including field names, data types, and relationships.",
+      "source_doc_ids": [
+        "D10",
+        "D18",
+        "D19"
+      ],
+      "priority": "High",
+      "priority_justification": "D10 marks UD-1 High Priority, and accurate data specifications support the cross-record reporting the product must deliver.",
+      "origin": "merge",
+      "source_priority_note": "D10 marks UD-1 High Priority"
+    },
+    {
+      "id": "R026",
+      "name": "Relational Database Support",
+      "description": "The system must use and operate with a fully relational database, support complex joins, and not require a denormalized reporting schema that can cause synchronization problems.",
+      "source_doc_ids": [
+        "D10",
+        "D16",
+        "D18",
+        "D19"
+      ],
+      "priority": "High",
+      "priority_justification": "D10 marks CO-1 High Priority, and the requested relational access underpins the system's complex cross-record reporting.",
+      "origin": "merge",
+      "source_priority_note": "D10 marks CO-1 High Priority"
+    },
+    {
+      "id": "R027",
+      "name": "Report Accuracy",
+      "description": "Report output must be tested and demonstrated to be accurate and dependable.",
+      "source_doc_ids": [
+        "D10"
+      ],
+      "priority": "High",
+      "priority_justification": "Inaccurate or unreliable reports undermine the system's central purpose of supporting management decisions.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R028",
+      "name": "Report Types and Uses",
+      "description": "The reporting interface must provide canned reports, noncanned on-demand reports based on preselected criteria for maintenance and collection-development activities, and open-template reports with selectable attributes for circulation, items, patrons, bills, and bibliographic records.",
+      "source_doc_ids": [
+        "D06",
+        "D10",
+        "D14",
+        "D20"
+      ],
+      "priority": "High",
+      "priority_justification": "Canned, on-demand, and open-template reports give users practical ways to cover routine and changing needs across core record types, making the system usable for its reporting purpose.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R029",
+      "name": "Server Platform Support",
+      "description": "The system must operate on Linux and Solaris servers, including Red Hat Enterprise Linux 5 and Solaris 10 on SPARC hardware where specified.",
+      "source_doc_ids": [
+        "D10",
+        "D16",
+        "D18"
+      ],
+      "priority": "High",
+      "priority_justification": "D10 marks OE-2 High Priority, specifying the server platforms the product must support in the target environment.",
+      "origin": "merge",
+      "source_priority_note": "D10 marks OE-2 High Priority"
+    },
+    {
+      "id": "R030",
+      "name": "Standards Compliant HTML",
+      "description": "Web interfaces, reports, and online help must produce HTML that validates against applicable web standards.",
+      "source_doc_ids": [
+        "D10",
+        "D16",
+        "D18",
+        "D19"
+      ],
+      "priority": "High",
+      "priority_justification": "D10 marks CO-2 High Priority, establishing standards-compliant HTML as a specified product constraint.",
+      "origin": "merge",
+      "source_priority_note": "D10 marks CO-2 High Priority"
+    },
+    {
+      "id": "R031",
+      "name": "Transaction Data Retention",
+      "description": "The system must retain circulation transaction data for the legally required period.",
+      "source_doc_ids": [
+        "D12"
+      ],
+      "priority": "High",
+      "priority_justification": "D12 identifies state-law retention as a compliance requirement, so the system must retain transaction data for the legally required period.",
+      "origin": "split",
+      "source_priority_note": "D12 identifies State-law retention and patron-privacy protection as compliance requirements"
+    },
+    {
+      "id": "R032",
+      "name": "Historical Reporting",
+      "description": "The system must provide historical reports through preserved data or a reporting warehouse, retrieving values as they existed at a specified date or date range, including past bills and shelving locations.",
+      "source_doc_ids": [
+        "D01",
+        "D10",
+        "D14",
+        "D19",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Historical reporting helps users understand what values and locations were at a past date, but it requires preserved data beyond the system's basic current-state reports.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R033",
+      "name": "Material Volume Reporting",
+      "description": "The system must report material volume for a specified library system or branch at the current or a historical date, including total items, new acquisitions, material added during selectable periods based on item acquisition dates such as the preceding 30, 60, or 90 days, checked-in items, checked-out items, holds, adult fiction, and board books. Checked-out items must count toward the total, and category groupings must be configurable by library system, such as fiction/non-fiction or format.",
+      "source_doc_ids": [
+        "D01",
+        "D10",
+        "D15"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Material-volume reporting helps managers track collection size and recent acquisitions by branch or system, but it is a focused management report.",
+      "origin": "folded",
+      "source_priority_note": "D01 identifies the Material Volume Report as a key requirement"
+    },
+    {
+      "id": "R034",
+      "name": "Branch Capacity And Demographics",
+      "description": "The reports interface must enable analysis of branch capacity and patron demographics.",
+      "source_doc_ids": [
+        "D02",
+        "D08",
+        "D10",
+        "D14",
+        "D17",
+        "D18"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Branch capacity and demographic analysis helps managers assess local needs, although the reporting system can serve its core purpose without this specific analysis.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R035",
+      "name": "Inventory Capacity Reporting",
+      "description": "The system must provide authorized staff, including branch managers, with inventory and operational capacity reports for monitoring collections and capacity. The capacity report must provide an all-branch view, allow drilldown to an individual branch, show capacity trends such as growth or shrinkage, support comparison for up to 286 branches, allow users to filter and sort branches by region, library type, and current load, and allow users to export capacity-view data in CSV format.",
+      "source_doc_ids": [
+        "D02",
+        "D10",
+        "D17",
+        "D18"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Branch capacity comparisons and trends help managers allocate space and monitor growth across the consortium, but the system can provide other oversight reports without them.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R036",
+      "name": "Staff Workflow And Financial Reports",
+      "description": "The reports interface must enable analysis of staff workflow and financial transactions.",
+      "source_doc_ids": [
+        "D10",
+        "D11",
+        "D14",
+        "D17",
+        "D18"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Staff-workflow and financial reporting helps administrators monitor operations and transactions, but it is one valuable reporting area among several.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R037",
+      "name": "Item Use and Circulation Metrics",
+      "description": "Reports must identify usage of uncataloged materials and provide total item-use counts, counts by fiscal year, month, or other usage date range, and circulation statistics including checkout, renewal, and other transactions involving uncataloged materials.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D15"
+      ],
+      "priority": "Medium",
+      "priority_justification": "These metrics help staff evaluate the use of uncataloged materials, while core collection and circulation reporting can still operate without this specialized coverage.",
+      "origin": "resolved",
+      "source_priority_note": null
+    },
+    {
+      "id": "R038",
+      "name": "Shelf Space Analysis",
+      "description": "The system must provide shelf-space analysis that compares, side by side, for each material genre and format, the percentage of total circulations, the percentage of the collection, and the percentage of total shelf space so users can identify differences and outliers, with views by branch and for the library system, selectable date ranges such as Q1 or Q2, collection percentages based on item counts, circulation percentages based on checkouts, and shelf-space estimates based on item dimensions or item count when dimensions are unavailable.",
+      "source_doc_ids": [
+        "D03",
+        "D10",
+        "D15",
+        "D18"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Shelf-space analysis helps managers compare collection allocation with use and identify outliers, but it is a specialized planning tool.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R039",
+      "name": "Batch Item Transfers",
+      "description": "Authorized staff must be able to transfer selected batches of items between branches and other destinations, including mobile libraries, outreach programs, warehouses, book sales, and event locations, by changing item locations or generating printable pull lists identifying items selected for transfer; the operation must process approximately 9.6 million items without excessive database locking.",
+      "source_doc_ids": [
+        "D04",
+        "D10",
+        "D15"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Batch transfers reduce effort when moving large groups of items, but staff can still perform transfers through other processes if this workflow is deferred.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R040",
+      "name": "Save and Share Queries",
+      "description": "The system must allow staff to save queries, including transfer-candidate queries, reuse them for repeated reporting activities including monthly reuse, and make saved queries available for reuse or sharing.",
+      "source_doc_ids": [
+        "D04",
+        "D10",
+        "D15",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Saving and sharing queries reduces repeated setup for recurring reports, though staff can still run reports by recreating query criteria.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R041",
+      "name": "Select Records for Actions",
+      "description": "The system must allow staff to manually select individual records from query results for subsequent administrative actions, including selecting individual titles or items from transfer-query results before executing a transfer, such as selecting 25 items from 100 candidates.",
+      "source_doc_ids": [
+        "D04",
+        "D10",
+        "D15",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Manual selection helps staff refine transfer candidates before acting, but transfer workflows can function without this added selection step.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R042",
+      "name": "Transfer Candidate Queries",
+      "description": "Staff must be able to query for candidate items for transfer using criteria such as genre, collection area, and circulation inactivity, including items that have not circulated for six months.",
+      "source_doc_ids": [
+        "D04",
+        "D10",
+        "D15",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Transfer-candidate queries help staff identify suitable items using several sources' requested criteria, while transfers can still be initiated through other selection methods.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R043",
+      "name": "Transfer Confirmation Preview",
+      "description": "Before execution, the system must show a transfer preview containing the item count and source and destination locations and require staff confirmation.",
+      "source_doc_ids": [
+        "D04"
+      ],
+      "priority": "Medium",
+      "priority_justification": "A preview and confirmation reduce accidental transfers by showing the affected count and locations before execution.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R044",
+      "name": "Transfer Location Updates",
+      "description": "The system must update the location field and associated item records for selected items moved to a new location.",
+      "source_doc_ids": [
+        "D04",
+        "D10",
+        "D15",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Updating item locations is needed to keep records accurate when a transfer occurs, although it supports a secondary operational workflow.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R045",
+      "name": "Transfer Reversion",
+      "description": "The system must return transferred items to their original locations after a configured period or configured event, including a status change to sold or returned or checkout at the destination.",
+      "source_doc_ids": [
+        "D04",
+        "D10",
+        "D15",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Configured reversion helps return items after temporary placements or specified events, but transfers can function without automated returns.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R046",
+      "name": "Batch Item Status Conversion",
+      "description": "The system must provide a workflow that converts many selected items from one status to another in a single batch, such as changing 100 missing items to discard/weed.",
+      "source_doc_ids": [
+        "D06",
+        "D10",
+        "D15"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Batch status changes can reduce repetitive item-maintenance work across the branches, but the reporting and transfer workflows can operate without this specific action.",
+      "origin": "resolved",
+      "source_priority_note": null
+    },
+    {
+      "id": "R047",
+      "name": "Data Quality and Integrity Reports",
+      "description": "The system must provide periodic data-quality reports identifying invalid item types, excessively long call numbers, bibliographic records without items, and other data problems.",
+      "source_doc_ids": [
+        "D10",
+        "D15",
+        "D18"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Periodic data-quality reports help staff find catalog and item-record problems, but they support maintenance rather than the system’s core reporting workflows.",
+      "origin": "resolved",
+      "source_priority_note": null
+    },
+    {
+      "id": "R048",
+      "name": "Hold and Transit Reports",
+      "description": "The system must provide periodic reports for records with holds, item-level holds, in-transit items with holds, and overdue transit.",
+      "source_doc_ids": [
+        "D10"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Hold and transit reports help staff coordinate material movement and resolve delays, though they serve a specialized operational workflow.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R049",
+      "name": "Item Change and Inventory Reports",
+      "description": "The system must provide reports on items that were added, deleted, edited, counted, or created within a specified date range.",
+      "source_doc_ids": [
+        "D07",
+        "D10",
+        "D14"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Item change and inventory reports help staff track collection activity and investigate record changes, but they are not the only way to meet management reporting needs.",
+      "origin": "granularity",
+      "source_priority_note": null
+    },
+    {
+      "id": "R050",
+      "name": "Item Circulation and Status Reports",
+      "description": "The system must provide periodic reports for items not checked out for a configurable period, last copies, and missing items.",
+      "source_doc_ids": [
+        "D06",
+        "D10",
+        "D14",
+        "D15"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Reports on inactive, last-copy, and missing items support collection management, but this periodic report suite is narrower than the overall reporting purpose.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R051",
+      "name": "Confirmed Purge Deletion",
+      "description": "The system must require a separate confirmation before executing purge deletions.",
+      "source_doc_ids": [
+        "D06"
+      ],
+      "priority": "Medium",
+      "priority_justification": "A separate confirmation helps prevent unintended destructive purges, although deletion itself is a specialized workflow.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R052",
+      "name": "Deletion Audit Recording",
+      "description": "The system must record completed and denied deletion attempts, including who performed or attempted each deletion, the record type, record ID, timestamp, user branch, library system, and, where required, the deletion reason.",
+      "source_doc_ids": [
+        "D06",
+        "D07",
+        "D15"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Recording completed and denied deletions gives administrators a useful accountability trail, although the reporting system can function without deletion auditing.",
+      "origin": "granularity",
+      "source_priority_note": null
+    },
+    {
+      "id": "R053",
+      "name": "Protected Purge Reports",
+      "description": "Reports identifying purge candidates must be read-only and must not delete or modify candidate records.",
+      "source_doc_ids": [
+        "D06"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Read-only candidate reports prevent an inspection step from altering records, providing a valuable safeguard for purge work.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R054",
+      "name": "Purge Candidate Identification",
+      "description": "The system must identify item records eligible for purging using customizable status, duration, and circulation criteria, including missing, discard/weed, or damaged status, time in status, and no circulation for a specified period; criteria must support Boolean combinations such as missing for six months and no circulation for two years.",
+      "source_doc_ids": [
+        "D06",
+        "D10",
+        "D15"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Customizable purge criteria help staff identify stale or unsuitable records consistently, though identification can be delivered after core reporting.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R055",
+      "name": "Check-In Method Reports",
+      "description": "The system must provide check-in reports that count check-ins individually and cumulatively by book drop, terminal, staff or user processing, and self-service.",
+      "source_doc_ids": [
+        "D10",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Check-in method counts help managers compare service channels and workload, but are a specialized part of circulation analysis.",
+      "origin": "granularity",
+      "source_priority_note": null
+    },
+    {
+      "id": "R056",
+      "name": "Circulation Attribute Reports",
+      "description": "The system must provide circulation reports using patron contact information, circulation modifiers, categories, patron county, home branch, and age, as well as item Dewey classification, shelving location, and MARC fields.",
+      "source_doc_ids": [
+        "D08",
+        "D10",
+        "D14"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Reports using patron and item attributes enable useful segmented circulation analysis, though the system can operate without every listed dimension.",
+      "origin": "granularity",
+      "source_priority_note": null
+    },
+    {
+      "id": "R057",
+      "name": "Inactive Patron Reporting",
+      "description": "The system must provide an inactive patron report for patrons with no circulation and no electronic activity during a configurable preceding period, where the threshold supports any number of days including 30, 90, 180, and 365 and electronic activity includes OPAC or patron-account logins, online holds, online renewals, and integrated digital-resource access. The report must separate patrons with outstanding fines, allow exclusion of patrons marked do-not-disturb, VIP patrons, staff members, and patrons who opted out of communications, include each patron's current mailing address, support CSV export for upload to an outreach system, and list or group results by configurable organizational scopes including the library system, home branch, and county so users can see system totals and assign work to branches.",
+      "source_doc_ids": [
+        "D09",
+        "D10",
+        "D14"
+      ],
+      "priority": "Medium",
+      "priority_justification": "The inactive-patron report can support targeted outreach and workload assignment, but this specialized workflow is not necessary for other management reporting.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R058",
+      "name": "Null and Blank Field Inclusion",
+      "description": "Patron queries and reports must include records and values with null or blank fields, including patrons whose optional demographic fields are null or blank, rather than silently excluding them.",
+      "source_doc_ids": [
+        "D08",
+        "D10",
+        "D14",
+        "D19",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Including null and blank values helps prevent incomplete demographic data from silently skewing patron reports, though it is an accuracy safeguard within those reports.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R059",
+      "name": "Overdue and Volume Reports",
+      "description": "The system must provide reports for overdue items, non-cataloged circulation, and total circulation by type.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D15"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Overdue and circulation-type reports help staff monitor circulation patterns, but they are a subset of the wider reporting scope.",
+      "origin": "granularity",
+      "source_priority_note": null
+    },
+    {
+      "id": "R060",
+      "name": "Patron Additions and Status",
+      "description": "The system must provide patron reports showing additions by month, expiration date, and barred or inactive status.",
+      "source_doc_ids": [
+        "D10",
+        "D14"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Addition, expiration, and status reports help staff manage patron accounts, although these administrative reports are not required for every management workflow.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R061",
+      "name": "Patron Counts and Demographics",
+      "description": "The system must provide a patron report with total counts and counts by age, county, city, ZIP code, and home branch.",
+      "source_doc_ids": [
+        "D08",
+        "D10",
+        "D14"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Patron counts by demographic and location help branches understand who they serve, but they are one analytical capability within the broader reporting system.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R062",
+      "name": "Patron Report Filtering",
+      "description": "The system must let users filter and group patron queries and reports by age range derived from birth date, ZIP code, county, home branch, patron type, and preferred language, combine filters with AND and OR logic and applicable circulation conditions, and configure age ranges separately for each patron report, including ranges such as 0–5, 6–10, 11–15 or 0–6, 7–12, 13–17, 18–24, and 25–34.",
+      "source_doc_ids": [
+        "D08",
+        "D10"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Filtering patron reports by demographic and organizational attributes supports useful analysis, but the reports interface can still operate without these specific filters and grouping options.",
+      "origin": "folded",
+      "source_priority_note": "D08 calls these reports essential"
+    },
+    {
+      "id": "R063",
+      "name": "Report Export Formats",
+      "description": "Report output must be available in Excel-compatible, HTML, and CSV formats, with Excel exports avoiding unnecessary duplicate rows.",
+      "source_doc_ids": [
+        "D02",
+        "D09",
+        "D10",
+        "D14",
+        "D19",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Excel-compatible, HTML, and CSV output lets staff use results in common tools, but the reports remain usable in the system without each format.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R064",
+      "name": "Acquisitions Cataloging Integration",
+      "description": "Management processes must read and use the data structures and functionality of the enterprise Library Automation System, including Acquisitions and Cataloging, without managing those functions.",
+      "source_doc_ids": [
+        "D10",
+        "D17",
+        "D18",
+        "D19"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Using the enterprise acquisitions and cataloging data avoids duplicating those functions, while those workflows remain outside this system's scope.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R065",
+      "name": "Anonymized Demographic Statistics",
+      "description": "The system must provide anonymized transaction and patron statistics by geographic region, ZIP code, age range, and other useful demographic attributes without disclosing personally identifiable information.",
+      "source_doc_ids": [
+        "D10",
+        "D12",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Anonymized demographic statistics support planning while protecting patron identity, a useful cross-source analysis capability.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R066",
+      "name": "Bibliographic Reports",
+      "description": "The system must provide bibliographic reports for record counts, edited records, records added by user and branch, records without attached volumes or items, and records missing specified MARC fields.",
+      "source_doc_ids": [
+        "D06",
+        "D10",
+        "D14",
+        "D15"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Bibliographic reports help staff review records and identify missing data, but are one component of the wider management-reporting suite.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R067",
+      "name": "Bills Report Suite",
+      "description": "The system must provide reports for current patron bills, detailed payments, forgive/work/goods payments, voids, and aged debt with detailed aging periods.",
+      "source_doc_ids": [
+        "D10",
+        "D14"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Bill and debt reports support financial follow-up, but are a specific part of the wider financial reporting capability.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R068",
+      "name": "Board and Executive Reports",
+      "description": "The system must provide predefined reports for library boards and executive users.",
+      "source_doc_ids": [
+        "D10",
+        "D12",
+        "D18"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Predefined board and executive reports save leadership time, but those users can still obtain oversight information through other reports.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R069",
+      "name": "Branch Operation Without Vendor Data",
+      "description": "Management processes must continue to function at a branch when vendor data is unavailable.",
+      "source_doc_ids": [
+        "D19"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Branch operations that continue without vendor data improve resilience, though this is a continuity enhancement rather than a prerequisite for core reporting.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R070",
+      "name": "Centralized Branch Reporting Service",
+      "description": "The system must provide a centralized service that accepts input from and serves multiple branches as a single reporting source of truth.",
+      "source_doc_ids": [
+        "D10",
+        "D18",
+        "D19"
+      ],
+      "priority": "Medium",
+      "priority_justification": "A centralized reporting service can give branches a consistent source of information, but the system can provide useful reports without this particular service architecture.",
+      "origin": "resolved",
+      "source_priority_note": null
+    },
+    {
+      "id": "R071",
+      "name": "Configuration Migration",
+      "description": "The system must export and import report templates, permission settings, saved queries, and other configuration between development, training, and production environments.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D16",
+        "D18",
+        "D19"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Migrating templates, permissions, and queries reduces configuration rework across environments, but the environments can function without automated migration.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R072",
+      "name": "Consortium Statistical Reports",
+      "description": "The Global System Administrator must be able to generate statistical reports for the entire library consortium.",
+      "source_doc_ids": [
+        "D10",
+        "D17"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Consortium-wide statistical reports let the global administrator evaluate network performance, but are a specific reporting scope.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R073",
+      "name": "Demographic Statistics Preservation",
+      "description": "The system must preserve useful demographic statistics when removing personally identifying information from retained transaction data.",
+      "source_doc_ids": [
+        "D10",
+        "D12"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Preserving demographics after removing patron identifiers supports useful aggregate analysis without compromising privacy, but the reports can operate without that retained detail.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R074",
+      "name": "Detailed Transaction Retention",
+      "description": "The system must retain detailed transaction history for a configurable number of days.",
+      "source_doc_ids": [
+        "D10",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Configurable detailed transaction retention supports historical analysis and retention planning, but its value depends on the reporting period each use case requires.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R075",
+      "name": "Director-Level Financial Reports",
+      "description": "The system must provide financial reports suitable for library directors and other users requiring director-level financial information, including patron balances by patron, home branch, and library system, fines and charges by period and charge type, waived fines by period and branch, and payments by period, collecting branch, payment channel, and payment type.",
+      "source_doc_ids": [
+        "D10",
+        "D11",
+        "D18"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Director-level financial summaries help leadership monitor balances, charges, waivers, and payments, but they are a defined subset of financial reporting.",
+      "origin": "folded",
+      "source_priority_note": null
+    },
+    {
+      "id": "R076",
+      "name": "Email Report Delivery",
+      "description": "The system must deliver reports by email and allow users to enter recipients.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Email delivery makes reports easier to distribute to recipients, but users can still access and export reports through the interface.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R077",
+      "name": "Environment Separation",
+      "description": "The product must provide separate development and training environments, including a training environment safe for experimentation without affecting production.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D16",
+        "D18",
+        "D19"
+      ],
+      "priority": "Medium",
+      "priority_justification": "D10 marks environment separation Medium Priority, and safe training and development spaces are useful without being prerequisites for live reporting.",
+      "origin": "merge",
+      "source_priority_note": "D10 marks CO-3 Medium Priority"
+    },
+    {
+      "id": "R078",
+      "name": "Error Feedback",
+      "description": "The system must provide high-level error reporting and low-level query-specific feedback to administrators, including relevant table, field, and error type when available.",
+      "source_doc_ids": [
+        "D10",
+        "D18",
+        "D19"
+      ],
+      "priority": "Medium",
+      "priority_justification": "D10 marks UD-4 Medium Priority, and detailed feedback helps administrators diagnose query problems but is not required for basic reporting.",
+      "origin": "merge",
+      "source_priority_note": "D10 marks UD-4 Medium Priority"
+    },
+    {
+      "id": "R079",
+      "name": "Financial Record Association",
+      "description": "The system must associate fines, charges, waivers, payments, and ecommerce transactions with relevant patron and item records and support joins between patron and item financial data.",
+      "source_doc_ids": [
+        "D10",
+        "D11"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Associating financial events with patron and item records enables useful reconciliation and joins, but is a specialized data capability.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R080",
+      "name": "Georgia Annual Report",
+      "description": "The system must provide the Georgia Annual Report as a report for state reporting.",
+      "source_doc_ids": [
+        "D10",
+        "D12"
+      ],
+      "priority": "Medium",
+      "priority_justification": "A Georgia Annual Report supports state reporting needs, though it is a specific report rather than a general system capability.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R081",
+      "name": "Hold Report Suite",
+      "description": "The system must provide hold reports for purchase alerts, items sent or received for holds, IntraPINES loans, unfilled holds, annual totals, and stale holds remaining beyond the permitted pickup period.",
+      "source_doc_ids": [
+        "D10",
+        "D14"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Hold reports help branches monitor requests and identify stale or unfilled holds, but are a defined circulation subdomain.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R082",
+      "name": "Immediate Desk Payment Reflection",
+      "description": "A payment made at a staff desk must be reflected immediately.",
+      "source_doc_ids": [
+        "D11"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Immediate reflection helps staff rely on current payment information, while delayed updates would not prevent the system from providing other financial reports.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R083",
+      "name": "Indefinite Transaction Aggregate Retention",
+      "description": "The system must retain monthly and annual transaction aggregates indefinitely where required.",
+      "source_doc_ids": [
+        "D10",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Retaining aggregates supports long-term trend analysis and applicable retention needs, but aggregate retention can be added later without blocking current reporting workflows.",
+      "origin": "resolved",
+      "source_priority_note": null
+    },
+    {
+      "id": "R084",
+      "name": "OPAC Data Querying",
+      "description": "Management processes must query patron-interface data created in the OPAC, including holds and circulation, without modifying that data.",
+      "source_doc_ids": [
+        "D10",
+        "D18",
+        "D19"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Querying OPAC-created holds and circulation makes patron-interface activity available to management reports without altering operational records.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R085",
+      "name": "Patron Behavior Statistics",
+      "description": "The system must produce statistics about patron behavior and material use, including return speed, renewal likelihood, renewal rates, and the percentage of branch checkouts that are renewals.",
+      "source_doc_ids": [
+        "D10",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Renewal and return-speed statistics help assess patron behavior and material use, but are analytical additions to core reporting.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R086",
+      "name": "Pivot Table Output",
+      "description": "The reporting system must provide pivot-table output.",
+      "source_doc_ids": [
+        "D10",
+        "D12",
+        "D14",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Pivot-table output helps users summarize and explore results, and multiple sources request it as a useful analysis format.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R087",
+      "name": "Process Documentation",
+      "description": "The product must document major processes, including bibliographic import and export, validation against internal and external authority sources, and standard reports.",
+      "source_doc_ids": [
+        "D10",
+        "D18",
+        "D19"
+      ],
+      "priority": "Medium",
+      "priority_justification": "D10 marks process documentation Medium Priority, and it helps administrators understand imports, validation, and reporting without blocking system operation.",
+      "origin": "merge",
+      "source_priority_note": "D10 marks UD-2 Medium Priority"
+    },
+    {
+      "id": "R088",
+      "name": "Query Criteria Display",
+      "description": "Report results must display the query selections, report name, and selected date criteria used to produce them.",
+      "source_doc_ids": [
+        "D10",
+        "D12",
+        "D14"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Showing query selections and date criteria makes results easier to interpret and reproduce, though it does not produce the underlying report data.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R089",
+      "name": "Query Designer Administration",
+      "description": "The system must allow administrators to control the tables, fields, and tool access available in the query designer.",
+      "source_doc_ids": [
+        "D10",
+        "D12"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Administrative controls over query fields and tools help manage access and usability, but the query designer remains useful without extensive configuration.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R090",
+      "name": "Real Time Reporting",
+      "description": "The system must support reports using current data in real time, including activity during busy periods.",
+      "source_doc_ids": [
+        "D01",
+        "D10",
+        "D14",
+        "D19",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Current-data reporting helps staff see recent activity, but some reporting needs can be met using scheduled or historical data.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R091",
+      "name": "Report Cancellation",
+      "description": "Users must be able to cancel scheduled, queued, or currently running reports, including during processing.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D19",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Cancelling queued or running reports helps reclaim resources and correct mistaken submissions, with four sources requesting the control.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R092",
+      "name": "Report Permission Administration",
+      "description": "The system must provide fine-grained permissions for creating, cloning, running, and accessing reports, filters, data sets, and shared folders, including administrator-controlled shared folders that allow or prohibit specific report access.",
+      "source_doc_ids": [
+        "D10",
+        "D12",
+        "D14",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Fine-grained report permissions help administrators safely share data and tools, complementing the broader access-control capability.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R093",
+      "name": "Report Queue Monitoring",
+      "description": "Users must be able to see report queue contents, position, number of reports ahead, submission time, and status such as waiting, running, completed, or failed.",
+      "source_doc_ids": [
+        "D10",
+        "D12",
+        "D14",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Queue visibility helps users understand delays and failures, and five sources request this useful operational transparency.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R094",
+      "name": "Report Queue Prioritization",
+      "description": "Authorized users or processes must be able to prioritize selected report types so important reports execute ahead of lower-priority or resource-consuming reports.",
+      "source_doc_ids": [
+        "D10",
+        "D12",
+        "D14"
+      ],
+      "priority": "Medium",
+      "priority_justification": "D12 describes prioritization as crucial, and controlling queue order can help time-sensitive reports finish ahead of resource-heavy work.",
+      "origin": "merge",
+      "source_priority_note": "D12 describes report prioritization as crucial"
+    },
+    {
+      "id": "R095",
+      "name": "Report Scheduling",
+      "description": "Users must be able to run reports as soon as possible or schedule them hourly, daily, weekly, monthly, or yearly, including recurring reports that can be edited by changing selections or email addresses.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Scheduling recurring reports reduces repeated staff work and is requested by three sources, but reports can also be run manually.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R096",
+      "name": "Report Template Controls",
+      "description": "Authorized administrators must create shared report templates that staff can run as-is or modify within controlled limits on filters and display fields, without compromising intended results or exposing deleted items; authorized users must be able to clone templates and edit permitted display options.",
+      "source_doc_ids": [
+        "D10",
+        "D12",
+        "D14",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Shared templates let administrators standardize reports while giving staff controlled flexibility, a useful capability requested by four sources.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R097",
+      "name": "Run Canned Reports by Period",
+      "description": "Users must be able to run product-delivered canned reports using yesterday's, last week's, last month's, or last year's data.",
+      "source_doc_ids": [
+        "D10"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Running canned reports for common prior periods supports routine evaluation, while users can still run reports using other available date criteria.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R098",
+      "name": "Staff Authentication",
+      "description": "The system must support optional employee-card or badge login and individual username-and-password login as a fallback; every login must identify the individual staff member and card login must not bypass individual authentication.",
+      "source_doc_ids": [
+        "D10",
+        "D13"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Individual authentication preserves accountability for staff activity, while badge login is an optional convenience rather than a core reporting feature.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R099",
+      "name": "State Aid Statistics",
+      "description": "The system must provide Application for State Aid statistics as a report for state reporting.",
+      "source_doc_ids": [
+        "D10"
+      ],
+      "priority": "Medium",
+      "priority_justification": "State Aid statistics help users prepare a specific reporting submission, but this report can be added separately from core management analytics.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R100",
+      "name": "Track Uncataloged Materials",
+      "description": "The system must track uncataloged items, including paperback books and children's board books, before catalog records exist.",
+      "source_doc_ids": [
+        "D10",
+        "D15"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Tracking uncataloged materials makes their use visible before catalog records exist, which helps libraries manage these materials but serves a narrower workflow.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R101",
+      "name": "Transaction Analysis Grouping",
+      "description": "The system must group transactions for analysis by hour, terminal, branch, library system, transaction type, and selected dimensions.",
+      "source_doc_ids": [
+        "D10",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Grouping transactions across operational dimensions supports useful trend analysis, but the system can provide other management reports without every grouping.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R102",
+      "name": "Transaction Summary Reports",
+      "description": "The system must report holds placed, holds filled, and checkouts by patron, branch, selected branch groups, library system, and county, including checkout and hold subtotals and hold states such as active, frozen, and frozen-until.",
+      "source_doc_ids": [
+        "D10",
+        "D14",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Summaries by branch and patron grouping help managers compare checkouts and holds, but are a specific set of transaction views.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R103",
+      "name": "Vendor Data Exchange",
+      "description": "Management processes must exchange standard-format data with vendor websites through published APIs or automated transfers, including USMARC21 and EDIFACT.",
+      "source_doc_ids": [
+        "D10",
+        "D18",
+        "D19"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Standard-format exchange with vendor systems supports connected management workflows, but reporting can still function when those integrations are unavailable.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R104",
+      "name": "Workstation Transaction Reports",
+      "description": "The system must report transactions for a specified date and time, workstation, or staff member.",
+      "source_doc_ids": [
+        "D10"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Workstation and staff transaction reports support operational review, but cover a narrower audit use than general circulation reporting.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R105",
+      "name": "Separate Item Dates",
+      "description": "Item reports must expose last-edit date, last-circulation date, and check-in date and time as separate fields; last-edit date changes only when the item is edited, and renewal timestamps must not be treated as check-ins or edits.",
+      "source_doc_ids": [
+        "D14",
+        "D15",
+        "D20"
+      ],
+      "priority": "Medium",
+      "priority_justification": "Separating edit, circulation, and check-in dates prevents staff from misinterpreting item history, and three sources request the distinctions.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R106",
+      "name": "Transfer Audit History",
+      "description": "The system must record transfer history for each item, including enough history to determine patterns such as five transfers within one year.",
+      "source_doc_ids": [
+        "D04"
+      ],
+      "priority": "Low",
+      "priority_justification": "Transfer history can reveal movement patterns, but the request appears in one source and is not needed to execute or track a transfer.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R107",
+      "name": "Transfer Delay Alerts",
+      "description": "The system must notify designated staff when a transfer is delayed or encounters an issue.",
+      "source_doc_ids": [
+        "D04"
+      ],
+      "priority": "Low",
+      "priority_justification": "Delay alerts can improve follow-up on individual transfers, but notifications are not required to perform or report transfers.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R108",
+      "name": "Transfer Undo",
+      "description": "Staff must be able to undo an erroneous transfer after it has been initiated or completed.",
+      "source_doc_ids": [
+        "D04"
+      ],
+      "priority": "Low",
+      "priority_justification": "Undo helps recover from staff mistakes, but is a single-source safeguard that can be deferred in favor of prevention and auditability.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R109",
+      "name": "Transit Label Generation",
+      "description": "The system must generate printable barcode transit labels for transferred items.",
+      "source_doc_ids": [
+        "D04"
+      ],
+      "priority": "Low",
+      "priority_justification": "Printable barcode labels can aid physical transit handling, but they are a convenience for one part of the transfer process.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R110",
+      "name": "Invalid Patron Branch Report",
+      "description": "The system must provide a periodic report for patrons with invalid home branches.",
+      "source_doc_ids": [
+        "D10"
+      ],
+      "priority": "Low",
+      "priority_justification": "A report on patrons with invalid home branches helps correct a specific data issue, but this narrow check is not central to system use.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R111",
+      "name": "Deletion Data Analysis",
+      "description": "The system must support counts and queries of deletion data by branch, library system, date range, user, record type, and highest-volume users.",
+      "source_doc_ids": [
+        "D07",
+        "D10",
+        "D15",
+        "D20"
+      ],
+      "priority": "Low",
+      "priority_justification": "Analyzing deletion records can help identify patterns after an audit trail exists, but it is a secondary capability built on the audit function.",
+      "origin": "granularity",
+      "source_priority_note": null
+    },
+    {
+      "id": "R112",
+      "name": "Orphan Record Deletion",
+      "description": "The system must provide a quick method to delete volume entries with their associated copy entries and records with no attached items.",
+      "source_doc_ids": [
+        "D06",
+        "D10",
+        "D15"
+      ],
+      "priority": "Low",
+      "priority_justification": "Quick deletion of orphaned entries streamlines cleanup, but the request is a specialized utility appearing in three sources.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R113",
+      "name": "Patron Surveys and Notes",
+      "description": "The system must provide patron reports showing survey answers and notes.",
+      "source_doc_ids": [
+        "D10",
+        "D14"
+      ],
+      "priority": "Low",
+      "priority_justification": "Survey answers and notes may inform selected patron analyses, but this specialized and potentially sensitive information is not needed for most reporting workflows.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R114",
+      "name": "Staff Account Date Reports",
+      "description": "The system must provide reports showing staff-account password-change dates and password-expiration dates.",
+      "source_doc_ids": [
+        "D10",
+        "D14"
+      ],
+      "priority": "Low",
+      "priority_justification": "Password-date reporting may help administrators monitor staff accounts, but it is a narrow administrative convenience rather than a central management-reporting need.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R115",
+      "name": "Combine Multiple Report Outputs",
+      "description": "Users must be able to select multiple product-delivered canned reports and combine their output in one document.",
+      "source_doc_ids": [
+        "D10"
+      ],
+      "priority": "Low",
+      "priority_justification": "Combining several canned reports into one document is a convenient presentation option, but users can still run and review each report separately.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R116",
+      "name": "Comparative Report Output",
+      "description": "Reports must support comparative columns such as last month's circulation, the previous month's circulation, percentage differences, and the corresponding month of the previous year.",
+      "source_doc_ids": [
+        "D10"
+      ],
+      "priority": "Low",
+      "priority_justification": "Comparative columns add context to selected reports, but the request appears in one source and is a report-format enhancement.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R117",
+      "name": "Distribute Materials Rapidly",
+      "description": "The system must support rapid distribution of uncataloged materials with minimal branch labor.",
+      "source_doc_ids": [
+        "D10",
+        "D15"
+      ],
+      "priority": "Low",
+      "priority_justification": "Rapid distribution with minimal branch labor would improve handling of uncataloged materials, but it is a workflow convenience rather than a reporting-system foundation.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R118",
+      "name": "File Based Filtering",
+      "description": "Users must be able to upload a text file containing values such as barcodes or TCNs and use those values as report filters.",
+      "source_doc_ids": [
+        "D10",
+        "D14"
+      ],
+      "priority": "Low",
+      "priority_justification": "Uploading filter values can simplify large selection tasks, but is a specialized input method requested by two sources.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R119",
+      "name": "Financial Information Updates",
+      "description": "Authorized staff must be able to update financial information easily.",
+      "source_doc_ids": [
+        "D10",
+        "D11"
+      ],
+      "priority": "Low",
+      "priority_justification": "Easy financial updates are useful to authorized staff, but updating financial records is peripheral to the management-reporting purpose.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R120",
+      "name": "High Balance Queries",
+      "description": "Staff must be able to query patron accounts with balances above a user-specified dollar amount.",
+      "source_doc_ids": [
+        "D10",
+        "D11"
+      ],
+      "priority": "Low",
+      "priority_justification": "High-balance queries help staff find accounts meeting a chosen threshold, but are a narrow financial-reporting convenience.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R121",
+      "name": "In House Use Reports",
+      "description": "The system must report non-cataloged in-house use by month and cataloged in-house use.",
+      "source_doc_ids": [
+        "D10"
+      ],
+      "priority": "Low",
+      "priority_justification": "In-house-use reporting measures a narrow category of activity and is requested by one source.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R122",
+      "name": "MARC Row Consolidation",
+      "description": "Reports must retrieve specified MARC fields and display them on one row even when the fields are stored across multiple rows.",
+      "source_doc_ids": [
+        "D10",
+        "D20"
+      ],
+      "priority": "Low",
+      "priority_justification": "Consolidating MARC fields onto one row simplifies a specific kind of report, but is not needed for general bibliographic reporting.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R123",
+      "name": "Notice Reports",
+      "description": "The system must report pre-overdue notices, overdue notices, and holds notices sent.",
+      "source_doc_ids": [
+        "D10"
+      ],
+      "priority": "Low",
+      "priority_justification": "Notice counts answer a narrow circulation question and are requested by one source, so they can follow broader report capabilities.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R124",
+      "name": "Report Quick Access",
+      "description": "The reporting interface must provide quick access to canned reports and templates, with hover or popup descriptions for report titles and templates.",
+      "source_doc_ids": [
+        "D10",
+        "D14"
+      ],
+      "priority": "Low",
+      "priority_justification": "Quick access and hover descriptions make reports easier to find, but are interface refinements rather than core reporting functions.",
+      "origin": "merge",
+      "source_priority_note": null
+    },
+    {
+      "id": "R125",
+      "name": "Report Recipient Address Book",
+      "description": "The system must provide an address book for users to store regularly used email addresses.",
+      "source_doc_ids": [
+        "D10",
+        "D14"
+      ],
+      "priority": "Low",
+      "priority_justification": "An address book is a convenience for repeated email delivery, since users can enter recipient addresses without it.",
+      "origin": "split",
+      "source_priority_note": null
+    },
+    {
+      "id": "R126",
+      "name": "Survey Name Filtering",
+      "description": "Users must be able to select a survey by name for filtering, with the system resolving the name to its survey identifier internally.",
+      "source_doc_ids": [
+        "D10",
+        "D19"
+      ],
+      "priority": "Low",
+      "priority_justification": "Selecting surveys by name is a usability improvement for a narrow filtering task that can be handled through identifiers.",
+      "origin": "merge",
+      "source_priority_note": null
+    }
+  ],
+  "blacklist": [],
+  "open_questions": [],
+  "open_issues": [
+    {
+      "type": "too_broad",
+      "requirement_ids": [
+        "R087"
+      ],
+      "explanation": "This bundles documentation of bibliographic import/export, authority validation, and standard reports. Each is an independently testable documentation capability."
+    },
+    {
+      "type": "too_narrow",
+      "requirement_ids": [
+        "R097",
+        "R028"
+      ],
+      "explanation": "R097 is the detail: it specifies prior-period choices for running canned reports. R028 is the parent capability, which already includes product-delivered canned reports."
+    },
+    {
+      "type": "too_narrow",
+      "requirement_ids": [
+        "R118",
+        "R016"
+      ],
+      "explanation": "R118 is a specific way to supply filter values for queries. R016 is the parent query-designer capability."
+    },
+    {
+      "type": "too_narrow",
+      "requirement_ids": [
+        "R126",
+        "R113"
+      ],
+      "explanation": "R126 is a specific survey-selection filter for patron reports showing survey answers and notes. R113 is the parent survey-report capability."
+    },
+    {
+      "type": "possibly_missed",
+      "requirement_ids": [],
+      "explanation": "“Transaction-Safe Batch Transfers” (D04): The system must execute batch item transfers with transaction safety so that updates are applied consistently and do not leave partially completed transfer operations."
+    },
+    {
+      "type": "possibly_missed",
+      "requirement_ids": [],
+      "explanation": "“Concurrent Report Execution” (D14): Users must be able to select multiple reports to run concurrently at the same time."
+    },
+    {
+      "type": "possibly_missed",
+      "requirement_ids": [],
+      "explanation": "“Patron Interest Analysis” (D17): The reports interface must enable analysis of patrons' interests in support of management planning, evaluation, and oversight."
+    },
+    {
+      "type": "possibly_missed",
+      "requirement_ids": [],
+      "explanation": "“Collection Distribution Analysis” (D17): The reports interface must enable analysis of branch capacity and the optimal distribution of the collection across branches."
+    },
+    {
+      "type": "possibly_missed",
+      "requirement_ids": [],
+      "explanation": "“Staff Productivity Analysis” (D17): The reports interface must enable analysis of staff productivity for management planning, evaluation, and oversight."
+    },
+    {
+      "type": "possibly_missed",
+      "requirement_ids": [],
+      "explanation": "“Financial Transaction Verification” (D17): The reports interface must support tracking and verifying financial transactions for management oversight."
+    }
+  ],
+  "coverage": [
+    {
+      "document": "D01",
+      "path": "conversations/conv_pines014_material_volume.eml",
+      "requirements": [
+        "R001",
+        "R032",
+        "R033",
+        "R090"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D02",
+      "path": "conversations/conv_pines015_capacity_interface.eml",
+      "requirements": [
+        "R002",
+        "R034",
+        "R035",
+        "R063"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D03",
+      "path": "conversations/conv_pines016_shelf_space.eml",
+      "requirements": [
+        "R001",
+        "R003",
+        "R020",
+        "R038"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D04",
+      "path": "conversations/conv_pines018_item_transfer.eml",
+      "requirements": [
+        "R004",
+        "R039",
+        "R040",
+        "R041",
+        "R042",
+        "R043",
+        "R044",
+        "R045",
+        "R106",
+        "R107",
+        "R108",
+        "R109"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D05",
+      "path": "conversations/conv_pines019_020_missing_intransit.eml",
+      "requirements": [
+        "R001",
+        "R006",
+        "R007",
+        "R008",
+        "R020"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D06",
+      "path": "conversations/conv_pines021_item_purging.eml",
+      "requirements": [
+        "R001",
+        "R005",
+        "R006",
+        "R016",
+        "R020",
+        "R028",
+        "R046",
+        "R050",
+        "R051",
+        "R052",
+        "R053",
+        "R054",
+        "R066",
+        "R112"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D07",
+      "path": "conversations/conv_pines022_deletions.eml",
+      "requirements": [
+        "R049",
+        "R052",
+        "R111"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D08",
+      "path": "conversations/conv_pines023_patron_characteristics.eml",
+      "requirements": [
+        "R001",
+        "R009",
+        "R020",
+        "R034",
+        "R056",
+        "R058",
+        "R061",
+        "R062"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D09",
+      "path": "conversations/conv_pines024_inactive_patrons.eml",
+      "requirements": [
+        "R011",
+        "R057",
+        "R063"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D10",
+      "path": "early_draft_srs_galecia.txt",
+      "requirements": [
+        "R001",
+        "R002",
+        "R003",
+        "R004",
+        "R005",
+        "R006",
+        "R007",
+        "R008",
+        "R009",
+        "R010",
+        "R011",
+        "R012",
+        "R013",
+        "R014",
+        "R015",
+        "R016",
+        "R017",
+        "R018",
+        "R019",
+        "R020",
+        "R021",
+        "R022",
+        "R023",
+        "R024",
+        "R025",
+        "R026",
+        "R027",
+        "R028",
+        "R029",
+        "R030",
+        "R032",
+        "R033",
+        "R034",
+        "R035",
+        "R036",
+        "R037",
+        "R038",
+        "R039",
+        "R040",
+        "R041",
+        "R042",
+        "R044",
+        "R045",
+        "R046",
+        "R047",
+        "R048",
+        "R049",
+        "R050",
+        "R054",
+        "R055",
+        "R056",
+        "R057",
+        "R058",
+        "R059",
+        "R060",
+        "R061",
+        "R062",
+        "R063",
+        "R064",
+        "R065",
+        "R066",
+        "R067",
+        "R068",
+        "R070",
+        "R071",
+        "R072",
+        "R073",
+        "R074",
+        "R075",
+        "R076",
+        "R077",
+        "R078",
+        "R079",
+        "R080",
+        "R081",
+        "R083",
+        "R084",
+        "R085",
+        "R086",
+        "R087",
+        "R088",
+        "R089",
+        "R090",
+        "R091",
+        "R092",
+        "R093",
+        "R094",
+        "R095",
+        "R096",
+        "R097",
+        "R098",
+        "R099",
+        "R100",
+        "R101",
+        "R102",
+        "R103",
+        "R104",
+        "R110",
+        "R111",
+        "R112",
+        "R113",
+        "R114",
+        "R115",
+        "R116",
+        "R117",
+        "R118",
+        "R119",
+        "R120",
+        "R121",
+        "R122",
+        "R123",
+        "R124",
+        "R125",
+        "R126"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D11",
+      "path": "email_financial_reports.eml",
+      "requirements": [
+        "R005",
+        "R012",
+        "R017",
+        "R018",
+        "R024",
+        "R036",
+        "R075",
+        "R079",
+        "R082",
+        "R119",
+        "R120"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D12",
+      "path": "email_report_features.eml",
+      "requirements": [
+        "R001",
+        "R004",
+        "R009",
+        "R011",
+        "R014",
+        "R016",
+        "R023",
+        "R031",
+        "R065",
+        "R068",
+        "R073",
+        "R080",
+        "R086",
+        "R088",
+        "R089",
+        "R092",
+        "R093",
+        "R094",
+        "R096"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D13",
+      "path": "email_staff_login.eml",
+      "requirements": [
+        "R004",
+        "R098"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D14",
+      "path": "evergreen_reference_2009.txt",
+      "requirements": [
+        "R001",
+        "R004",
+        "R005",
+        "R006",
+        "R010",
+        "R011",
+        "R013",
+        "R014",
+        "R015",
+        "R016",
+        "R019",
+        "R020",
+        "R022",
+        "R028",
+        "R032",
+        "R034",
+        "R036",
+        "R037",
+        "R049",
+        "R050",
+        "R056",
+        "R057",
+        "R058",
+        "R059",
+        "R060",
+        "R061",
+        "R063",
+        "R066",
+        "R067",
+        "R071",
+        "R076",
+        "R077",
+        "R081",
+        "R086",
+        "R088",
+        "R090",
+        "R091",
+        "R092",
+        "R093",
+        "R094",
+        "R095",
+        "R096",
+        "R102",
+        "R105",
+        "R113",
+        "R114",
+        "R118",
+        "R124",
+        "R125"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D15",
+      "path": "interview_cataloging_2009-05-08.txt",
+      "requirements": [
+        "R001",
+        "R005",
+        "R006",
+        "R007",
+        "R008",
+        "R020",
+        "R033",
+        "R037",
+        "R038",
+        "R039",
+        "R040",
+        "R041",
+        "R042",
+        "R044",
+        "R045",
+        "R046",
+        "R047",
+        "R050",
+        "R052",
+        "R054",
+        "R059",
+        "R066",
+        "R100",
+        "R105",
+        "R111",
+        "R112",
+        "R117"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D16",
+      "path": "interview_sysadmin_2009-05-10.txt",
+      "requirements": [
+        "R004",
+        "R011",
+        "R013",
+        "R015",
+        "R019",
+        "R020",
+        "R021",
+        "R022",
+        "R026",
+        "R029",
+        "R030",
+        "R071",
+        "R077"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D17",
+      "path": "meeting_minutes/meeting_2009-03-15_minutes.txt",
+      "requirements": [
+        "R001",
+        "R002",
+        "R014",
+        "R020",
+        "R034",
+        "R035",
+        "R036",
+        "R064",
+        "R072"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D18",
+      "path": "meeting_minutes/meeting_2009-07-20_minutes.txt",
+      "requirements": [
+        "R001",
+        "R002",
+        "R003",
+        "R004",
+        "R005",
+        "R006",
+        "R007",
+        "R008",
+        "R011",
+        "R013",
+        "R014",
+        "R015",
+        "R019",
+        "R020",
+        "R021",
+        "R022",
+        "R025",
+        "R026",
+        "R029",
+        "R030",
+        "R034",
+        "R035",
+        "R036",
+        "R038",
+        "R047",
+        "R064",
+        "R068",
+        "R070",
+        "R071",
+        "R075",
+        "R077",
+        "R078",
+        "R084",
+        "R087",
+        "R103"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D19",
+      "path": "meeting_tech_subcommittee_2009-06-30.txt",
+      "requirements": [
+        "R004",
+        "R013",
+        "R019",
+        "R020",
+        "R021",
+        "R022",
+        "R025",
+        "R026",
+        "R030",
+        "R032",
+        "R058",
+        "R063",
+        "R064",
+        "R069",
+        "R070",
+        "R071",
+        "R077",
+        "R078",
+        "R084",
+        "R087",
+        "R090",
+        "R091",
+        "R103",
+        "R126"
+      ],
+      "blacklist": []
+    },
+    {
+      "document": "D20",
+      "path": "survey_results_2009.txt",
+      "requirements": [
+        "R001",
+        "R009",
+        "R010",
+        "R011",
+        "R016",
+        "R022",
+        "R028",
+        "R032",
+        "R040",
+        "R041",
+        "R042",
+        "R044",
+        "R045",
+        "R055",
+        "R058",
+        "R063",
+        "R065",
+        "R074",
+        "R076",
+        "R083",
+        "R085",
+        "R086",
+        "R090",
+        "R091",
+        "R092",
+        "R093",
+        "R095",
+        "R096",
+        "R101",
+        "R102",
+        "R105",
+        "R111",
+        "R122"
+      ],
+      "blacklist": []
+    }
+  ]
+}
