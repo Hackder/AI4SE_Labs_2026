@@ -114,3 +114,11 @@ The student pointed out that "pushed live updates are a property of the system, 
 3. Publishing availability on commit: the tick is the only trigger until measured hot-sale latency justifies adding it.
 4. One SQLite file per event: deferred until a second shard machine or long-term archiving is needed.
 5. Future features: statistics, a friend feed, chat, and collaborative editing are out of scope, and the architecture has a place for each.
+
+## Task 3: The skill
+
+The assistant read these notes, the final ADR, and the student's messages in the transcript, and wrote the `architecture-design` skill. The live copy is `.claude/skills/architecture-design/` at the repository root, so any new session in this folder loads it. `Submission/skill/` holds a copy for the submission.
+
+The skill has three files. `SKILL.md` sets the working rules the student gave at the start (one topic at a time, do not run ahead, keep notes, do not edit the student's skills) and a five-phase workflow: name the drivers, propose three or four architectures in one table, discuss the hardest subsystem first, write the ADR, close. `references/lessons.md` lists every correction the student made in tasks 1 and 2 as a mistake, the correction, and the resulting rule. `references/adr-template.md` is the final ADR's structure with the checks the revision rounds produced.
+
+The second run of tasks 1 and 2, with the skill loaded, is in `Submission/with-skill/`: `transcript/transcript.jsonl` is the Claude Code session file and `transcript/transcript.html` a readable rendering of it, `ADR.md` is the accepted record, and `NOTES.md` condenses the discussion. The comparison report for task 3 is `Submission/report/report.pdf`, built from `report/report.typ`.
