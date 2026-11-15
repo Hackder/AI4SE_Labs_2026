@@ -71,3 +71,24 @@ pricing, simulation, ...).
   database is regenerable and gitignored.
 - The `meta` table records `embedding_model`, `dim` and `chunk_count`; the query side embeds
   with the recorded model. Compare models by indexing into separate files with `--db`.
+
+## Task 5: generation, patching, testing
+
+- **Prompt:** system prompt asks for only the complete method (decorators, signature, docstring,
+  body) in one python block, keeping the stub signature, adding no imports. The user prompt
+  lists the 5 retrieved chunks (path, lines, qualname, source), then the task: target, docstring
+  and the stub (signature from the file plus the docstring). The same task text is the
+  retrieval query.
+- **Patching (`patcher.py`):** code is taken from a fenced block, else from the reply with prose
+  before the first def/class line and unparseable trailing lines dropped. The method is found
+  by name with `ast`: top level (`ok`) or inside a returned class/file (`extracted`). It is
+  dedented, re-indented to the stub's column and replaces the stub's line range (decorators
+  included; the stub's decorators are kept if the reply has none, e.g. `@property`). The file
+  is written only if it still parses; otherwise `patch_failed` and the raw reply stays in
+  `summary.json`/`trace.jsonl`.
+- **Tests (`testrun.py`):** the suite runs in a subprocess (no bytecode written, so the baseline
+  run on the committed clone leaves it untouched); a `sys.setprofile` hook records which target
+  methods each test called, which maps every failing test to the generated methods it depends
+  on. A test that calls several targets is counted under each.
+- Chat calls use the `openai` SDK (already a dependency for embeddings) rather than
+  langchain-openai; no temperature is sent, since reasoning models reject it.

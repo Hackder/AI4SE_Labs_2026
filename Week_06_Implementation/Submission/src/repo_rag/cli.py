@@ -1,4 +1,4 @@
-"""Command line: ``repo-rag chunk``, ``repo-rag index``, ``repo-rag query``."""
+"""Command line: ``repo-rag chunk|index|query|generate|compare``."""
 
 from __future__ import annotations
 
@@ -7,8 +7,17 @@ from collections import Counter
 from pathlib import Path
 
 from .chunker import chunk_repository, load_chunks, save_chunks
-from .config import CHUNKS_PATH, DB_PATH, REPO_DIR, embedding_model
+from .config import (
+    CHUNKS_PATH,
+    DB_PATH,
+    MISSING_CODE_PATH,
+    REPO_DIR,
+    RUNS_DIR,
+    embedding_model,
+)
 from .embedder import make_embedder
+from .generate import compare_runs, load_tasks, run_generation
+from .llm import ALLOWED_MODELS, DEFAULT_CHAT_MODEL, FAKE_MODEL, make_chat
 from .retrieve import build_index, retrieve
 
 
@@ -42,6 +51,28 @@ def _query(args: argparse.Namespace) -> None:
             print(c.text)
 
 
+def _generate(args: argparse.Namespace) -> None:
+    tasks = load_tasks(args.tasks)
+    for model in args.model:
+        run_dir = run_generation(
+            tasks,
+            make_chat(model),
+            args.repo,
+            args.db,
+            args.runs_dir,
+            n=args.n,
+            include_tests=not args.no_tests,
+        )
+        print(f"{model}: {run_dir / 'summary.md'}")
+        print((run_dir / "summary.md").read_text(encoding="utf-8"))
+
+
+def _compare(args: argparse.Namespace) -> None:
+    table = compare_runs(args.runs_dir)
+    (args.runs_dir / "comparison.md").write_text(table, encoding="utf-8")
+    print(table, end="")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(prog="repo-rag")
     sub = parser.add_subparsers(required=True)
@@ -69,6 +100,26 @@ def main() -> None:
     p.add_argument("--exact", action="store_true", help="exact scan instead of the ANN index")
     p.add_argument("--show", action="store_true", help="print chunk source")
     p.set_defaults(func=_query)
+
+    p = sub.add_parser("generate", help="implement the missing methods, patch a copy, run tests")
+    p.add_argument(
+        "--model",
+        nargs="+",
+        default=[DEFAULT_CHAT_MODEL],
+        choices=[*ALLOWED_MODELS, FAKE_MODEL],
+        help="chat model(s), one run each; 'fake' answers offline with a non-solution",
+    )
+    p.add_argument("--tasks", type=Path, default=MISSING_CODE_PATH)
+    p.add_argument("--repo", type=Path, default=REPO_DIR)
+    p.add_argument("--db", type=Path, default=DB_PATH)
+    p.add_argument("--runs-dir", type=Path, default=RUNS_DIR)
+    p.add_argument("-n", type=int, default=5, help="chunks retrieved per task")
+    p.add_argument("--no-tests", action="store_true", help="do not retrieve test chunks")
+    p.set_defaults(func=_generate)
+
+    p = sub.add_parser("compare", help="tabulate all run summaries (also -> comparison.md)")
+    p.add_argument("--runs-dir", type=Path, default=RUNS_DIR)
+    p.set_defaults(func=_compare)
 
     args = parser.parse_args()
     args.func(args)

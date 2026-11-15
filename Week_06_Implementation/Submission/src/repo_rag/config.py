@@ -12,6 +12,10 @@ REPO_DIR = SUBMISSION_DIR / "AI4SE_Playground"
 OUTPUT_DIR = SUBMISSION_DIR / "output"
 CHUNKS_PATH = OUTPUT_DIR / "chunks.jsonl"
 DB_PATH = OUTPUT_DIR / "index.db"
+RUNS_DIR = OUTPUT_DIR / "runs"
+MISSING_CODE_PATH = SUBMISSION_DIR.parent / "Assignments" / "missing_code.json"
+# Directory inside the clone that holds the ``playground`` package and its ``tests``.
+TEST_DIR = "playground"
 
 DEFAULT_EMBEDDING_MODEL = "text-embedding-3-small"
 
