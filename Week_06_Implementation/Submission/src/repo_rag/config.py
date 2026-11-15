@@ -17,7 +17,8 @@ MISSING_CODE_PATH = SUBMISSION_DIR.parent / "Assignments" / "missing_code.json"
 # Directory inside the clone that holds the ``playground`` package and its ``tests``.
 TEST_DIR = "playground"
 
-DEFAULT_EMBEDDING_MODEL = "text-embedding-3-small"
+# Local fastembed model; the OpenAI ones (text-embedding-3-small) need a key with embedding access.
+DEFAULT_EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
 
 load_dotenv(SUBMISSION_DIR / ".env")
 

@@ -92,3 +92,11 @@ pricing, simulation, ...).
   on. A test that calls several targets is counted under each.
 - Chat calls use the `openai` SDK (already a dependency for embeddings) rather than
   langchain-openai; no temperature is sent, since reasoning models reject it.
+- **Embeddings:** the course OpenAI project returns 403 for every embedding model
+  (text-embedding-3-small/-large, ada-002), so the default is now the local fastembed model
+  `BAAI/bge-small-en-v1.5` (384 dim, ONNX mirror `Qdrant/bge-small-en-v1.5-onnx-Q`, 64 MB in
+  fastembed's temp cache). Indexing 538 chunks takes ~80 s on CPU; `index.db` is 10 MB.
+- **First real run (gpt-6-luna):** 10/10 patched `ok`, 480/481 tests pass (baseline 429,
+  +51), 12 076 tokens. The one failure, `test_contains_present_even_if_zero_on_hand_after_commit`,
+  contradicts the `InventoryLedger.__contains__` docstring ("positive on-hand stock"); the
+  model followed the docstring.

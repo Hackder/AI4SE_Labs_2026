@@ -7,6 +7,7 @@ authors = [
 ]
 requires-python = "==3.14.*"
 dependencies = [
+    "fastembed==0.9.1",
     "libsql>=0.1.11",
     "openai>=3.51.0",
     "python-dotenv>=1.2.4",
@@ -43,3 +44,12 @@ venv = ".venv"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+# Supply-chain caution for the packages fastembed pulls in: only releases at least ~2 weeks old.
+[tool.uv.exclude-newer-package]
+onnxruntime = "2026-11-01T00:00:00Z"
+click = "2026-11-01T00:00:00Z"
+filelock = "2026-11-01T00:00:00Z"
+hf-xet = "2026-11-01T00:00:00Z"
+certifi = "2026-11-01T00:00:00Z"
+win32-setctime = "2026-11-01T00:00:00Z"

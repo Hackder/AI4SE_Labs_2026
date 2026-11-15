@@ -1,4 +1,8 @@
-"""Turn text into vectors: an OpenAI embedder and a deterministic fake for tests and offline runs."""
+"""Turn text into vectors: a local fastembed (ONNX) model, the OpenAI API, or a deterministic
+fake for tests.
+
+The local model is the default because the course OpenAI key has no access to embedding models.
+"""
 
 from __future__ import annotations
 
@@ -51,6 +55,33 @@ class OpenAIEmbedder:
         return vectors
 
 
+class LocalEmbedder:
+    """A fastembed ONNX model run locally (no torch). Downloaded on first use from the
+    Hugging Face repo fastembed lists for the model, into fastembed's cache directory
+    (``FASTEMBED_CACHE_PATH``, default a ``fastembed_cache`` folder in the system temp dir).
+    Vectors come back L2-normalised."""
+
+    def __init__(self, model: str) -> None:
+        from fastembed import TextEmbedding  # imported lazily: loading onnxruntime is slow
+
+        self._model = model
+        self._encoder = TextEmbedding(model_name=model)
+        self._dim: int | None = None
+
+    @property
+    def model(self) -> str:
+        return self._model
+
+    @property
+    def dim(self) -> int:
+        if self._dim is None:
+            self._dim = len(self.embed(["dimension probe"])[0])
+        return self._dim
+
+    def embed(self, texts: list[str]) -> list[list[float]]:
+        return [[float(v) for v in vector] for vector in self._encoder.embed(texts)]
+
+
 class FakeEmbedder:
     """Hashed bag of identifier tokens. Deterministic and offline, with crude lexical overlap
     so retrieval results are still somewhat meaningful."""
@@ -85,8 +116,11 @@ def _tokens(text: str) -> list[str]:
 
 
 def make_embedder(model: str) -> Embedder:
-    """``fake`` or ``fake-hash[-dim]`` gives the fake embedder; anything else is an OpenAI model."""
+    """``fake`` or ``fake-hash[-dim]`` gives the fake embedder, ``text-embedding-*`` the OpenAI
+    API, anything else a local fastembed model (e.g. ``BAAI/bge-small-en-v1.5``)."""
     if model == "fake" or model.startswith(FAKE_MODEL):
         suffix = model.removeprefix(FAKE_MODEL).lstrip("-")
         return FakeEmbedder(int(suffix)) if suffix.isdigit() else FakeEmbedder()
-    return OpenAIEmbedder(model)
+    if model.startswith("text-embedding-"):
+        return OpenAIEmbedder(model)
+    return LocalEmbedder(model)

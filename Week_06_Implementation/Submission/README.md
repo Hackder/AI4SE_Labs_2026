@@ -5,13 +5,19 @@ playground repository): AST chunking, embeddings, libSQL native vector search.
 
 ```sh
 uv sync
-cp .env.example .env   # then set OPENAI_API_KEY (optional EMBEDDING_MODEL)
+cp .env.example .env   # then set OPENAI_API_KEY (for generation; optional EMBEDDING_MODEL)
 
 uv run repo-rag chunk                 # AI4SE_Playground -> output/chunks.jsonl
-uv run repo-rag index                 # embed with text-embedding-3-small -> output/index.db
-uv run repo-rag index --model fake    # offline deterministic hash embedder, no API key
+uv run repo-rag index                 # embed locally with BAAI/bge-small-en-v1.5 -> output/index.db
+uv run repo-rag index --model jinaai/jina-embeddings-v2-base-code --db output/jina.db
+uv run repo-rag index --model text-embedding-3-small   # OpenAI; the course key has no access
+uv run repo-rag index --model fake    # offline deterministic hash embedder
 uv run repo-rag query "Return a mapping of SKU to available quantity." -n 5 [--show]
 ```
+
+Local models run with `fastembed` (ONNX runtime, no torch). The model (~67 MB for
+bge-small) is downloaded on first use into fastembed's cache (`FASTEMBED_CACHE_PATH`, default
+`$TMPDIR/fastembed_cache`), outside the repository.
 
 `query` options: `--no-tests` (exclude test chunks), `--exact` (exact scan instead of the ANN
 index), `--db PATH` (use another index, e.g. one per embedding model).
@@ -45,7 +51,7 @@ Each run writes to `output/runs/<timestamp>_<model>/`:
 ## Layout
 
 - `src/repo_rag/chunker.py`: AST chunking, JSONL persistence
-- `src/repo_rag/embedder.py`: OpenAI and fake embedders
+- `src/repo_rag/embedder.py`: local fastembed, OpenAI and fake embedders
 - `src/repo_rag/store.py`: libSQL schema, insert, ANN and exact search
 - `src/repo_rag/retrieve.py`: `build_index`, `retrieve`
 - `src/repo_rag/llm.py`: OpenAI chat model and the offline fake, allowed model list
