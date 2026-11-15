@@ -29,6 +29,8 @@ From Python: `repo_rag.retrieve.retrieve(task_text, n)` returns `Hit(chunk, scor
 ```sh
 uv run repo-rag generate                                # gpt-6-luna, all of missing_code.json
 uv run repo-rag generate --model gpt-6-luna gpt-5-mini  # one run per model
+uv run repo-rag generate --model gpt-6-luna --no-tests  # ablation: no test chunks retrieved
+uv run repo-rag generate --model gpt-6-luna -n 0        # ablation: no retrieval (stub only)
 uv run repo-rag generate --model fake                   # offline: answers with a non-solution
 uv run repo-rag compare                                 # table over all runs -> output/runs/comparison.md
 ```
@@ -39,7 +41,9 @@ gpt-5-mini, gpt-4.1-nano, gpt-4o-mini) or `fake`. Other options: `-n` (chunks pe
 
 Per entry the run builds the task text (target, docstring and the stub signature), retrieves the
 top 5 chunks, asks the model for the method only, and patches it into a copy of the playground.
-Each run writes to `output/runs/<timestamp>_<model>/`:
+Each run writes to `output/runs/<timestamp>_<model>[_<variant>]/` (variant `no-tests`, `no-rag`;
+none for the default top-5 retrieval). `compare` prints one row per run and a pass matrix of
+target methods x runs (`k/N` = tests calling the method that pass).
 
 - `playground/`: the patched copy (gitignored); the committed clone is never modified
 - `trace.jsonl`: every LLM call (retrieved chunks, prompt, raw response, token usage, timing)

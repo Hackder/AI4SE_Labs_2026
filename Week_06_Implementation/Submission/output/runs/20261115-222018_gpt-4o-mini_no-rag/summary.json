@@ -1,0 +1,711 @@
+{
+ "model": "gpt-4o-mini",
+ "run": "20261115-222018_gpt-4o-mini_no-rag",
+ "started_at": "2026-11-15T22:20:18.635+01:00",
+ "ended_at": "2026-11-15T22:20:32.158+01:00",
+ "variant": "no-rag",
+ "retrieval": {
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "n": 0,
+  "include_tests": true
+ },
+ "patch_status": {
+  "ok": 10
+ },
+ "usage": {
+  "prompt": 1621,
+  "completion": 501,
+  "total": 2122
+ },
+ "tests": {
+  "baseline": {
+   "total": 481,
+   "passed": 429,
+   "failed": 35,
+   "errors": 17,
+   "skipped": 0
+  },
+  "patched": {
+   "total": 481,
+   "passed": 425,
+   "failed": 0,
+   "errors": 56,
+   "skipped": 0
+  },
+  "delta_passed": -4,
+  "fixed": [
+   "tests.test_events.EventBusContainsTests.test_contains_true_with_handler",
+   "tests.test_events.EventBusSubscribeTests.test_subscribe_registers_handler",
+   "tests.test_models.CustomerTests.test_can_afford_accounts_for_existing_balance",
+   "tests.test_models.CustomerTests.test_can_afford_non_money_rejected",
+   "tests.test_models.CustomerTests.test_can_afford_true_within_limit",
+   "tests.test_models.CustomerTests.test_charge_exactly_to_limit_allowed",
+   "tests.test_models.CustomerTests.test_charge_increases_balance",
+   "tests.test_models.CustomerTests.test_charge_non_money_propagates_type_error"
+  ],
+  "broken": [
+   "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_malformed_string_false",
+   "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_non_str_false",
+   "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_valid_but_unstocked_false",
+   "tests.test_orders.OrderAddItemTests.test_add_after_cancel_rejected",
+   "tests.test_orders.OrderLogTests.test_by_status_non_status_raises_on_first_next",
+   "tests.test_pricing.BulkDiscountPriceTests.test_call_matches_price",
+   "tests.test_simulation.RunSimulationTests.test_deterministic_for_same_seed",
+   "tests.test_simulation.RunSimulationTests.test_returns_report_with_totals",
+   "tests.test_simulation.SimulationRunTests.test_run_returns_report",
+   "tests.test_simulation.SimulationStepTests.test_order_ids_are_sequential",
+   "tests.test_simulation.SimulationStepTests.test_reserved_event_payload_fields",
+   "tests.test_simulation.SimulationStepTests.test_terminal_event_published_once_per_step"
+  ],
+  "failing": {
+   "tests.test_enums.OrderStatusTests.test_cancelled_is_terminal": {
+    "outcome": "error",
+    "targets": [
+     "OrderStatus.is_terminal"
+    ],
+    "message": "AttributeError: 'OrderStatus' object has no attribute 'COMPLETED'"
+   },
+   "tests.test_enums.OrderStatusTests.test_new_is_not_terminal": {
+    "outcome": "error",
+    "targets": [
+     "OrderStatus.is_terminal"
+    ],
+    "message": "AttributeError: 'OrderStatus' object has no attribute 'COMPLETED'"
+   },
+   "tests.test_enums.OrderStatusTests.test_reserved_is_not_terminal": {
+    "outcome": "error",
+    "targets": [
+     "OrderStatus.is_terminal"
+    ],
+    "message": "AttributeError: 'OrderStatus' object has no attribute 'COMPLETED'"
+   },
+   "tests.test_enums.OrderStatusTests.test_shipped_is_terminal": {
+    "outcome": "error",
+    "targets": [
+     "OrderStatus.is_terminal"
+    ],
+    "message": "AttributeError: 'OrderStatus' object has no attribute 'COMPLETED'"
+   },
+   "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_malformed_string_false": {
+    "outcome": "error",
+    "targets": [
+     "InventoryLedger.__contains__"
+    ],
+    "message": "AttributeError: 'InventoryLedger' object has no attribute 'normalize_sku'"
+   },
+   "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_non_str_false": {
+    "outcome": "error",
+    "targets": [
+     "InventoryLedger.__contains__"
+    ],
+    "message": "AttributeError: 'InventoryLedger' object has no attribute 'normalize_sku'"
+   },
+   "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_normalized_present": {
+    "outcome": "error",
+    "targets": [
+     "InventoryLedger.__contains__"
+    ],
+    "message": "AttributeError: 'InventoryLedger' object has no attribute 'normalize_sku'"
+   },
+   "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_present_even_if_zero_on_hand_after_commit": {
+    "outcome": "error",
+    "targets": [
+     "InventoryLedger.__contains__"
+    ],
+    "message": "AttributeError: 'InventoryLedger' object has no attribute 'normalize_sku'"
+   },
+   "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_valid_but_unstocked_false": {
+    "outcome": "error",
+    "targets": [
+     "InventoryLedger.__contains__"
+    ],
+    "message": "AttributeError: 'InventoryLedger' object has no attribute 'normalize_sku'"
+   },
+   "tests.test_inventory.WarehouseTests.test_stock_report_empty": {
+    "outcome": "error",
+    "targets": [
+     "Warehouse.stock_report"
+    ],
+    "message": "AttributeError: 'Warehouse' object has no attribute 'inventory'"
+   },
+   "tests.test_inventory.WarehouseTests.test_stock_report_lists_available": {
+    "outcome": "error",
+    "targets": [
+     "Warehouse.stock_report"
+    ],
+    "message": "AttributeError: 'Warehouse' object has no attribute 'inventory'"
+   },
+   "tests.test_models.MoneyMiscTests.test_bool_false_for_zero": {
+    "outcome": "error",
+    "targets": [
+     "Money.__bool__"
+    ],
+    "message": "AttributeError: 'Money' object has no attribute 'amount'"
+   },
+   "tests.test_models.MoneyMiscTests.test_bool_true_for_nonzero": {
+    "outcome": "error",
+    "targets": [
+     "Money.__bool__"
+    ],
+    "message": "AttributeError: 'Money' object has no attribute 'amount'"
+   },
+   "tests.test_orders.OrderAddItemTests.test_add_after_advance_rejected": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderAddItemTests.test_add_after_cancel_rejected": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderAddItemTests.test_add_appends_new_sku": {
+    "outcome": "error",
+    "targets": [
+     "Order.__len__"
+    ],
+    "message": "AttributeError: 'Order' object has no attribute 'line_items'"
+   },
+   "tests.test_orders.OrderAddItemTests.test_add_same_sku_merges_quantity": {
+    "outcome": "error",
+    "targets": [
+     "Order.__len__"
+    ],
+    "message": "AttributeError: 'Order' object has no attribute 'line_items'"
+   },
+   "tests.test_orders.OrderAdvanceTests.test_advance_from_terminal_raises": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderAdvanceTests.test_advance_to_same_status_raises": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderAdvanceTests.test_cancel_from_new": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderAdvanceTests.test_cancel_from_reserved": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderAdvanceTests.test_happy_path_to_shipped": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderAdvanceTests.test_illegal_advance_raises_and_keeps_status": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderBuilderTests.test_build_merges_duplicate_skus": {
+    "outcome": "error",
+    "targets": [
+     "Order.__len__"
+    ],
+    "message": "AttributeError: 'Order' object has no attribute 'line_items'"
+   },
+   "tests.test_orders.OrderBuilderTests.test_build_twice_creates_independent_orders": {
+    "outcome": "error",
+    "targets": [
+     "Order.__len__"
+    ],
+    "message": "AttributeError: 'Order' object has no attribute 'line_items'"
+   },
+   "tests.test_orders.OrderConstructionTests.test_initial_state": {
+    "outcome": "error",
+    "targets": [
+     "Order.__len__"
+    ],
+    "message": "AttributeError: 'Order' object has no attribute 'line_items'"
+   },
+   "tests.test_orders.OrderContainerTests.test_len": {
+    "outcome": "error",
+    "targets": [
+     "Order.__len__"
+    ],
+    "message": "AttributeError: 'Order' object has no attribute 'line_items'"
+   },
+   "tests.test_orders.OrderEqualityTests.test_repr_includes_status": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderLogTests.test_by_status_filters": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderLogTests.test_by_status_is_lazy_generator": {
+    "outcome": "error",
+    "targets": [
+     "OrderLog.by_status"
+    ],
+    "message": "AttributeError: 'OrderLog' object has no attribute 'orders'. Did you mean: '_orders'?"
+   },
+   "tests.test_orders.OrderLogTests.test_by_status_non_status_raises_on_first_next": {
+    "outcome": "error",
+    "targets": [
+     "OrderLog.by_status"
+    ],
+    "message": "AttributeError: 'OrderLog' object has no attribute 'orders'"
+   },
+   "tests.test_orders.OrderStateMachineTests.test_call_is_alias_for_transition": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderStateMachineTests.test_transition_illegal_raises": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderStateMachineTests.test_transition_returns_target_when_legal": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_orders.OrderTotalTests.test_total_reflects_merged_quantities_for_bulk_discount": {
+    "outcome": "error",
+    "targets": [
+     "BulkDiscountPricing.price"
+    ],
+    "message": "AttributeError: 'BulkDiscountPricing' object has no attribute 'quantity_threshold'"
+   },
+   "tests.test_pricing.BulkDiscountPriceTests.test_at_threshold_applies_discount": {
+    "outcome": "error",
+    "targets": [
+     "BulkDiscountPricing.price"
+    ],
+    "message": "AttributeError: 'BulkDiscountPricing' object has no attribute 'quantity_threshold'"
+   },
+   "tests.test_pricing.BulkDiscountPriceTests.test_below_threshold_returns_base_total": {
+    "outcome": "error",
+    "targets": [
+     "BulkDiscountPricing.price"
+    ],
+    "message": "AttributeError: 'BulkDiscountPricing' object has no attribute 'quantity_threshold'"
+   },
+   "tests.test_pricing.BulkDiscountPriceTests.test_call_matches_price": {
+    "outcome": "error",
+    "targets": [
+     "BulkDiscountPricing.price"
+    ],
+    "message": "AttributeError: 'BulkDiscountPricing' object has no attribute 'quantity_threshold'"
+   },
+   "tests.test_pricing.BulkDiscountPriceTests.test_discount_uses_floor_division": {
+    "outcome": "error",
+    "targets": [
+     "BulkDiscountPricing.price"
+    ],
+    "message": "AttributeError: 'BulkDiscountPricing' object has no attribute 'quantity_threshold'"
+   },
+   "tests.test_pricing.BulkDiscountPriceTests.test_empty_items_below_threshold": {
+    "outcome": "error",
+    "targets": [
+     "BulkDiscountPricing.price"
+    ],
+    "message": "AttributeError: 'BulkDiscountPricing' object has no attribute 'quantity_threshold'"
+   },
+   "tests.test_pricing.BulkDiscountPriceTests.test_full_discount_yields_zero": {
+    "outcome": "error",
+    "targets": [
+     "BulkDiscountPricing.price"
+    ],
+    "message": "AttributeError: 'BulkDiscountPricing' object has no attribute 'quantity_threshold'"
+   },
+   "tests.test_pricing.BulkDiscountPriceTests.test_quantity_summed_across_lines": {
+    "outcome": "error",
+    "targets": [
+     "BulkDiscountPricing.price"
+    ],
+    "message": "AttributeError: 'BulkDiscountPricing' object has no attribute 'quantity_threshold'"
+   },
+   "tests.test_pricing.BulkDiscountPriceTests.test_wraps_base_with_tax": {
+    "outcome": "error",
+    "targets": [
+     "BulkDiscountPricing.price"
+    ],
+    "message": "AttributeError: 'BulkDiscountPricing' object has no attribute 'quantity_threshold'"
+   },
+   "tests.test_pricing.BulkDiscountPriceTests.test_zero_percent_returns_base_even_above_threshold": {
+    "outcome": "error",
+    "targets": [
+     "BulkDiscountPricing.price"
+    ],
+    "message": "AttributeError: 'BulkDiscountPricing' object has no attribute 'quantity_threshold'"
+   },
+   "tests.test_simulation.BuildDefaultWarehouseTests.test_returns_warehouse_with_three_skus_each_20": {
+    "outcome": "error",
+    "targets": [
+     "Warehouse.stock_report"
+    ],
+    "message": "AttributeError: 'Warehouse' object has no attribute 'inventory'"
+   },
+   "tests.test_simulation.RunSimulationTests.test_deterministic_for_same_seed": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_simulation.RunSimulationTests.test_returns_report_with_totals": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_simulation.SimulationRunTests.test_run_returns_report": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_simulation.SimulationStepTests.test_cancel_path_releases_reservation": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_simulation.SimulationStepTests.test_order_ids_are_sequential": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_simulation.SimulationStepTests.test_order_line_has_unit_price_1000_and_quantity_1_to_3": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_simulation.SimulationStepTests.test_reserved_event_payload_fields": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_simulation.SimulationStepTests.test_same_seed_is_reproducible": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_simulation.SimulationStepTests.test_shipped_path_publishes_and_adds_revenue": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_simulation.SimulationStepTests.test_step_returns_order_and_accounts_for_it": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   },
+   "tests.test_simulation.SimulationStepTests.test_terminal_event_published_once_per_step": {
+    "outcome": "error",
+    "targets": [
+     "OrderStateMachine.transition"
+    ],
+    "message": "AttributeError: 'OrderStateMachine' object has no attribute 'allowed_transitions'"
+   }
+  }
+ },
+ "targets": [
+  {
+   "target": "OrderStatus.is_terminal",
+   "file": "playground/playground/enums.py",
+   "retrieved": [],
+   "usage": {
+    "prompt": 154,
+    "completion": 44,
+    "total": 198
+   },
+   "raw_response": "```python\n@property\ndef is_terminal(self) -> bool:\n    \"\"\"True when the status ends further transitions.\"\"\"\n    return self in (self.COMPLETED, self.CANCELED, self.FAILED)\n```",
+   "status": "ok",
+   "code": "    @property\n    def is_terminal(self) -> bool:\n        \"\"\"True when the status ends further transitions.\"\"\"\n        return self in (self.COMPLETED, self.CANCELED, self.FAILED)\n",
+   "error": null,
+   "tests": {
+    "called_by": 4,
+    "passed": 0,
+    "failing": [
+     "tests.test_enums.OrderStatusTests.test_cancelled_is_terminal",
+     "tests.test_enums.OrderStatusTests.test_new_is_not_terminal",
+     "tests.test_enums.OrderStatusTests.test_reserved_is_not_terminal",
+     "tests.test_enums.OrderStatusTests.test_shipped_is_terminal"
+    ]
+   }
+  },
+  {
+   "target": "InventoryLedger.__contains__",
+   "file": "playground/playground/inventory.py",
+   "retrieved": [],
+   "usage": {
+    "prompt": 174,
+    "completion": 61,
+    "total": 235
+   },
+   "raw_response": "```python\ndef __contains__(self, sku: object) -> bool:\n    \"\"\"Return whether ``sku`` normalises to a SKU with positive on-hand stock.\"\"\"\n    normalized_sku = self.normalize_sku(sku)\n    return self.get_stock(normalized_sku) > 0\n```",
+   "status": "ok",
+   "code": "    def __contains__(self, sku: object) -> bool:\n        \"\"\"Return whether ``sku`` normalises to a SKU with positive on-hand stock.\"\"\"\n        normalized_sku = self.normalize_sku(sku)\n        return self.get_stock(normalized_sku) > 0\n",
+   "error": null,
+   "tests": {
+    "called_by": 5,
+    "passed": 0,
+    "failing": [
+     "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_malformed_string_false",
+     "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_non_str_false",
+     "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_normalized_present",
+     "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_present_even_if_zero_on_hand_after_commit",
+     "tests.test_inventory.InventoryLedgerContainsLenIterTests.test_contains_valid_but_unstocked_false"
+    ]
+   }
+  },
+  {
+   "target": "Warehouse.stock_report",
+   "file": "playground/playground/inventory.py",
+   "retrieved": [],
+   "usage": {
+    "prompt": 156,
+    "completion": 47,
+    "total": 203
+   },
+   "raw_response": "```python\ndef stock_report(self) -> Dict[str, int]:\n    \"\"\"Return a mapping of SKU to available quantity.\"\"\"\n    return {item.sku: item.quantity for item in self.inventory if item.quantity > 0}\n```",
+   "status": "ok",
+   "code": "    def stock_report(self) -> Dict[str, int]:\n        \"\"\"Return a mapping of SKU to available quantity.\"\"\"\n        return {item.sku: item.quantity for item in self.inventory if item.quantity > 0}\n",
+   "error": null,
+   "tests": {
+    "called_by": 3,
+    "passed": 0,
+    "failing": [
+     "tests.test_inventory.WarehouseTests.test_stock_report_empty",
+     "tests.test_inventory.WarehouseTests.test_stock_report_lists_available",
+     "tests.test_simulation.BuildDefaultWarehouseTests.test_returns_warehouse_with_three_skus_each_20"
+    ]
+   }
+  },
+  {
+   "target": "OrderStateMachine.transition",
+   "file": "playground/playground/orders.py",
+   "retrieved": [],
+   "usage": {
+    "prompt": 171,
+    "completion": 76,
+    "total": 247
+   },
+   "raw_response": "```python\ndef transition(self, source: OrderStatus, target: OrderStatus) -> OrderStatus:\n    \"\"\"Return ``target`` if the transition is allowed, else raise.\"\"\"\n    if (source, target) in self.allowed_transitions:\n        return target\n    else:\n        raise ValueError(f\"Transition from {source} to {target} is not allowed.\")\n```",
+   "status": "ok",
+   "code": "    def transition(self, source: OrderStatus, target: OrderStatus) -> OrderStatus:\n        \"\"\"Return ``target`` if the transition is allowed, else raise.\"\"\"\n        if (source, target) in self.allowed_transitions:\n            return target\n        else:\n            raise ValueError(f\"Transition from {source} to {target} is not allowed.\")\n",
+   "error": null,
+   "tests": {
+    "called_by": 24,
+    "passed": 0,
+    "failing": [
+     "tests.test_orders.OrderAddItemTests.test_add_after_advance_rejected",
+     "tests.test_orders.OrderAddItemTests.test_add_after_cancel_rejected",
+     "tests.test_orders.OrderAdvanceTests.test_advance_from_terminal_raises",
+     "tests.test_orders.OrderAdvanceTests.test_advance_to_same_status_raises",
+     "tests.test_orders.OrderAdvanceTests.test_cancel_from_new",
+     "tests.test_orders.OrderAdvanceTests.test_cancel_from_reserved",
+     "tests.test_orders.OrderAdvanceTests.test_happy_path_to_shipped",
+     "tests.test_orders.OrderAdvanceTests.test_illegal_advance_raises_and_keeps_status",
+     "tests.test_orders.OrderEqualityTests.test_repr_includes_status",
+     "tests.test_orders.OrderLogTests.test_by_status_filters",
+     "tests.test_orders.OrderStateMachineTests.test_call_is_alias_for_transition",
+     "tests.test_orders.OrderStateMachineTests.test_transition_illegal_raises",
+     "tests.test_orders.OrderStateMachineTests.test_transition_returns_target_when_legal",
+     "tests.test_simulation.RunSimulationTests.test_deterministic_for_same_seed",
+     "tests.test_simulation.RunSimulationTests.test_returns_report_with_totals",
+     "tests.test_simulation.SimulationRunTests.test_run_returns_report",
+     "tests.test_simulation.SimulationStepTests.test_cancel_path_releases_reservation",
+     "tests.test_simulation.SimulationStepTests.test_order_ids_are_sequential",
+     "tests.test_simulation.SimulationStepTests.test_order_line_has_unit_price_1000_and_quantity_1_to_3",
+     "tests.test_simulation.SimulationStepTests.test_reserved_event_payload_fields",
+     "tests.test_simulation.SimulationStepTests.test_same_seed_is_reproducible",
+     "tests.test_simulation.SimulationStepTests.test_shipped_path_publishes_and_adds_revenue",
+     "tests.test_simulation.SimulationStepTests.test_step_returns_order_and_accounts_for_it",
+     "tests.test_simulation.SimulationStepTests.test_terminal_event_published_once_per_step"
+    ]
+   }
+  },
+  {
+   "target": "OrderLog.by_status",
+   "file": "playground/playground/orders.py",
+   "retrieved": [],
+   "usage": {
+    "prompt": 159,
+    "completion": 48,
+    "total": 207
+   },
+   "raw_response": "```python\ndef by_status(self, status: OrderStatus) -> Iterator[Order]:\n    \"\"\"Yield orders whose status matches ``status``.\"\"\"\n    for order in self.orders:\n        if order.status == status:\n            yield order\n```",
+   "status": "ok",
+   "code": "    def by_status(self, status: OrderStatus) -> Iterator[Order]:\n        \"\"\"Yield orders whose status matches ``status``.\"\"\"\n        for order in self.orders:\n            if order.status == status:\n                yield order\n",
+   "error": null,
+   "tests": {
+    "called_by": 2,
+    "passed": 0,
+    "failing": [
+     "tests.test_orders.OrderLogTests.test_by_status_is_lazy_generator",
+     "tests.test_orders.OrderLogTests.test_by_status_non_status_raises_on_first_next"
+    ]
+   }
+  },
+  {
+   "target": "Customer.can_afford",
+   "file": "playground/playground/models.py",
+   "retrieved": [],
+   "usage": {
+    "prompt": 170,
+    "completion": 47,
+    "total": 217
+   },
+   "raw_response": "```python\ndef can_afford(self, total: Money) -> bool:\n    \"\"\"Return True if ``balance + total`` does not exceed the credit limit.\"\"\"\n    return (self.balance + total) <= self.credit_limit\n```",
+   "status": "ok",
+   "code": "    def can_afford(self, total: Money) -> bool:\n        \"\"\"Return True if ``balance + total`` does not exceed the credit limit.\"\"\"\n        return (self.balance + total) <= self.credit_limit\n",
+   "error": null,
+   "tests": {
+    "called_by": 8,
+    "passed": 8,
+    "failing": []
+   }
+  },
+  {
+   "target": "Order.__len__",
+   "file": "playground/playground/orders.py",
+   "retrieved": [],
+   "usage": {
+    "prompt": 150,
+    "completion": 29,
+    "total": 179
+   },
+   "raw_response": "```python\ndef __len__(self) -> int:\n    \"\"\"Return the number of line items.\"\"\"\n    return len(self.line_items)\n```",
+   "status": "ok",
+   "code": "    def __len__(self) -> int:\n        \"\"\"Return the number of line items.\"\"\"\n        return len(self.line_items)\n",
+   "error": null,
+   "tests": {
+    "called_by": 6,
+    "passed": 0,
+    "failing": [
+     "tests.test_orders.OrderAddItemTests.test_add_appends_new_sku",
+     "tests.test_orders.OrderAddItemTests.test_add_same_sku_merges_quantity",
+     "tests.test_orders.OrderBuilderTests.test_build_merges_duplicate_skus",
+     "tests.test_orders.OrderBuilderTests.test_build_twice_creates_independent_orders",
+     "tests.test_orders.OrderConstructionTests.test_initial_state",
+     "tests.test_orders.OrderContainerTests.test_len"
+    ]
+   }
+  },
+  {
+   "target": "BulkDiscountPricing.price",
+   "file": "playground/playground/pricing.py",
+   "retrieved": [],
+   "usage": {
+    "prompt": 168,
+    "completion": 69,
+    "total": 237
+   },
+   "raw_response": "```python\ndef price(self, items: Sequence[LineItem]) -> Money:\n    \"\"\"Return the base price, less the discount if the quantity qualifies.\"\"\"\n    total_quantity = sum(item.quantity for item in items)\n    if total_quantity >= self.quantity_threshold:\n        return self.base_price - self.discount\n    return self.base_price\n```",
+   "status": "ok",
+   "code": "    def price(self, items: Sequence[LineItem]) -> Money:\n        \"\"\"Return the base price, less the discount if the quantity qualifies.\"\"\"\n        total_quantity = sum(item.quantity for item in items)\n        if total_quantity >= self.quantity_threshold:\n            return self.base_price - self.discount\n        return self.base_price\n",
+   "error": null,
+   "tests": {
+    "called_by": 10,
+    "passed": 0,
+    "failing": [
+     "tests.test_orders.OrderTotalTests.test_total_reflects_merged_quantities_for_bulk_discount",
+     "tests.test_pricing.BulkDiscountPriceTests.test_at_threshold_applies_discount",
+     "tests.test_pricing.BulkDiscountPriceTests.test_below_threshold_returns_base_total",
+     "tests.test_pricing.BulkDiscountPriceTests.test_call_matches_price",
+     "tests.test_pricing.BulkDiscountPriceTests.test_discount_uses_floor_division",
+     "tests.test_pricing.BulkDiscountPriceTests.test_empty_items_below_threshold",
+     "tests.test_pricing.BulkDiscountPriceTests.test_full_discount_yields_zero",
+     "tests.test_pricing.BulkDiscountPriceTests.test_quantity_summed_across_lines",
+     "tests.test_pricing.BulkDiscountPriceTests.test_wraps_base_with_tax",
+     "tests.test_pricing.BulkDiscountPriceTests.test_zero_percent_returns_base_even_above_threshold"
+    ]
+   }
+  },
+  {
+   "target": "EventBus.__contains__",
+   "file": "playground/playground/events.py",
+   "retrieved": [],
+   "usage": {
+    "prompt": 165,
+    "completion": 48,
+    "total": 213
+   },
+   "raw_response": "```python\ndef __contains__(self, event_type: object) -> bool:\n    \"\"\"Return whether any handlers are registered for ``event_type``.\"\"\"\n    return event_type in self._handlers and bool(self._handlers[event_type])\n```",
+   "status": "ok",
+   "code": "    def __contains__(self, event_type: object) -> bool:\n        \"\"\"Return whether any handlers are registered for ``event_type``.\"\"\"\n        return event_type in self._handlers and bool(self._handlers[event_type])\n",
+   "error": null,
+   "tests": {
+    "called_by": 6,
+    "passed": 6,
+    "failing": []
+   }
+  },
+  {
+   "target": "Money.__bool__",
+   "file": "playground/playground/models.py",
+   "retrieved": [],
+   "usage": {
+    "prompt": 154,
+    "completion": 32,
+    "total": 186
+   },
+   "raw_response": "```python\ndef __bool__(self) -> bool:\n    \"\"\"Return True when the amount is non-zero.\"\"\"\n    return self.amount != 0\n```",
+   "status": "ok",
+   "code": "    def __bool__(self) -> bool:\n        \"\"\"Return True when the amount is non-zero.\"\"\"\n        return self.amount != 0\n",
+   "error": null,
+   "tests": {
+    "called_by": 2,
+    "passed": 0,
+    "failing": [
+     "tests.test_models.MoneyMiscTests.test_bool_false_for_zero",
+     "tests.test_models.MoneyMiscTests.test_bool_true_for_nonzero"
+    ]
+   }
+  }
+ ]
+}

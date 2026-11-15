@@ -86,3 +86,17 @@ def test_mock_run(tmp_path: Path) -> None:
     assert len((run_dir / "trace.jsonl").read_text().splitlines()) == len(tasks)
     assert (run_dir / "summary.md").exists()
     assert run_dir.name in compare_runs(tmp_path / "runs")
+
+
+def test_no_rag_variant(tmp_path: Path) -> None:
+    db = tmp_path / "index.db"
+    build_index(chunk_repository(REPO_DIR), FakeEmbedder(64), db)
+    tasks = load_tasks(MISSING_CODE_PATH)[:1]
+
+    run_dir = run_generation(tasks, FakeChat(), REPO_DIR, db, tmp_path / "runs", n=0)
+
+    assert run_dir.name.endswith("_fake_no-rag")
+    record = json.loads((run_dir / "trace.jsonl").read_text())
+    assert record["retrieved"] == []
+    assert record["messages"][1]["content"].startswith("## Task")
+    assert "| fake | no-rag |" in compare_runs(tmp_path / "runs")

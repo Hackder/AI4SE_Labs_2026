@@ -71,12 +71,23 @@ def task_text(task: Task, repo_dir: Path) -> str:
 
 def build_prompt(text: str, hits: list[Hit]) -> str:
     """Retrieved chunks first, the task (ending with the stub) last."""
+    if not hits:
+        return f"## Task\n\n{text}"
     context = "\n\n".join(
         f"### {h.chunk.path}:{h.chunk.start_line}-{h.chunk.end_line} ({h.chunk.qualname})\n"
         f"```python\n{h.chunk.text.rstrip()}\n```"
         for h in hits
     )
     return f"Relevant code retrieved from the repository:\n\n{context}\n\n## Task\n\n{text}"
+
+
+def variant(n: int, include_tests: bool) -> str:
+    """Short name of the retrieval setting: ``default`` (top 5 incl. tests), ``no-tests``,
+    ``no-rag`` (no chunks), or ``n<k>`` for another chunk count."""
+    if n == 0:
+        return "no-rag"
+    name = "default" if n == 5 else f"n{n}"
+    return name if include_tests else ("no-tests" if n == 5 else f"{name}-no-tests")
 
 
 def _now() -> str:
@@ -94,7 +105,9 @@ def run_generation(
 ) -> Path:
     """Generate, patch and test one run; returns the run directory."""
     started = _now()
-    run_dir = runs_dir / f"{datetime.now():%Y%m%d-%H%M%S}_{chat.model}"
+    setting = variant(n, include_tests)
+    suffix = "" if setting == "default" else f"_{setting}"
+    run_dir = runs_dir / f"{datetime.now():%Y%m%d-%H%M%S}_{chat.model}{suffix}"
     work = run_dir / "playground"
     shutil.copytree(repo_dir, work, ignore=shutil.ignore_patterns("__pycache__", ".pytest_cache"))
     store = VectorStore(db_path)
@@ -106,7 +119,7 @@ def run_generation(
     with (run_dir / "trace.jsonl").open("w", encoding="utf-8") as trace:
         for task in tasks:
             text = task_text(task, repo_dir)
-            hits = retrieve(text, n, db_path, include_tests=include_tests)
+            hits = retrieve(text, n, db_path, include_tests=include_tests) if n > 0 else []
             prompt = build_prompt(text, hits)
             record: dict[str, Any] = {
                 "started_at": _now(),
@@ -157,6 +170,7 @@ def run_generation(
         "run": run_dir.name,
         "started_at": started,
         "ended_at": _now(),
+        "variant": setting,
         "retrieval": {"embedding_model": embedding_model, "n": n, "include_tests": include_tests},
         "patch_status": dict(Counter(e["status"] for e in entries)),
         "usage": dict(sum((Counter(e["usage"]) for e in entries), Counter[str]())),
@@ -200,7 +214,7 @@ def _changed(baseline: TestReport, patched: TestReport, to_passed: bool) -> list
 
 def _summary_md(s: dict[str, Any]) -> str:
     base, after = s["tests"]["baseline"], s["tests"]["patched"]
-    model = f"- Model: `{s['model']}`; retrieval: top {s['retrieval']['n']} chunks, "
+    model = f"- Model: `{s['model']}`; variant `{s['variant']}`: top {s['retrieval']['n']} chunks, "
     model += f"embeddings `{s['retrieval']['embedding_model']}`"
     tests = f"- Tests: {after['passed']}/{after['total']} passed (baseline "
     tests += f"{base['passed']}/{base['total']}, delta {s['tests']['delta_passed']:+d}); "
@@ -235,23 +249,45 @@ def _summary_md(s: dict[str, Any]) -> str:
 
 
 def compare_runs(runs_dir: Path = RUNS_DIR) -> str:
-    """A markdown table over every ``summary.json`` under ``runs_dir``."""
+    """Markdown over every ``summary.json`` under ``runs_dir``: one row per run, then a pass
+    matrix of target methods x runs (tests calling the method that pass, ``k/N``)."""
+    runs = [
+        json.loads(p.read_text(encoding="utf-8")) for p in sorted(runs_dir.glob("*/summary.json"))
+    ]
     statuses = ("ok", "extracted", "patch_failed", "llm_error")
     lines = [
-        "| Run | Model | Embeddings | " + " | ".join(statuses) + " | Tests passed | Delta "
-        "| Targets all-pass | Tokens |",
-        "|---|---|---|" + "---|" * len(statuses) + "---|---|---|---|",
+        "| Run | Model | Variant | Embeddings | " + " | ".join(statuses) + " | Tests passed "
+        "| Delta | Targets all-pass | Tokens |",
+        "|---|---|---|---|" + "---|" * len(statuses) + "---|---|---|---|",
     ]
-    for path in sorted(runs_dir.glob("*/summary.json")):
-        s = json.loads(path.read_text(encoding="utf-8"))
+    for s in runs:
         after = s["tests"]["patched"]
         all_pass = sum(
             e["tests"]["called_by"] > 0 and not e["tests"]["failing"] for e in s["targets"]
         )
+        retrieval = s["retrieval"]
         lines.append(
-            f"| {s['run']} | {s['model']} | {s['retrieval']['embedding_model']} | "
+            f"| {s['run']} | {s['model']} | {variant(retrieval['n'], retrieval['include_tests'])} "
+            f"| {retrieval['embedding_model']} | "
             + " | ".join(str(s["patch_status"].get(k, 0)) for k in statuses)
             + f" | {after['passed']}/{after['total']} | {s['tests']['delta_passed']:+d} "
             f"| {all_pass}/{len(s['targets'])} | {s['usage'].get('total', '-')} |"
         )
+    if not runs:
+        return "\n".join(lines) + "\n"
+
+    # Pass matrix: one column per run, labelled model and variant.
+    labels = []
+    for s in runs:
+        setting = variant(s["retrieval"]["n"], s["retrieval"]["include_tests"])
+        labels.append(s["model"] + ("" if setting == "default" else f" ({setting})"))
+    lines += ["", "| Method | " + " | ".join(labels) + " |", "|---|" + "---|" * len(runs)]
+    tests = [{e["target"]: e["tests"] for e in s["targets"]} for s in runs]
+    for target in tests[0]:
+        cells = []
+        for by_target in tests:
+            t = by_target[target]
+            mark = "ok" if t["called_by"] and not t["failing"] else "FAIL"
+            cells.append(f"{t['passed']}/{t['called_by']} {mark}")
+        lines.append(f"| `{target}` | " + " | ".join(cells) + " |")
     return "\n".join(lines) + "\n"

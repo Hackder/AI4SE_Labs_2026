@@ -100,3 +100,12 @@ pricing, simulation, ...).
   +51), 12 076 tokens. The one failure, `test_contains_present_even_if_zero_on_hand_after_commit`,
   contradicts the `InventoryLedger.__contains__` docstring ("positive on-hand stock"); the
   model followed the docstring.
+- **Model comparison and ablations** (`output/runs/comparison.md`): six allowed models pass
+  468-480/481 with top-5 RAG. gpt-4.1-nano was not run: the API returns 404 "model has been
+  deprecated". Weak models fail `BulkDiscountPricing.price` (they invent `Money.amount` or use
+  `Money // int`); gpt-5-mini raises a bare `Exception` instead of `InvalidTransitionError`.
+  Without test chunks (`--no-tests`) results barely move (478 and 477), so leaking tests is not
+  what drives success. Without retrieval (`-n 0`) both models fall to the baseline (429 and
+  425): they hallucinate private attribute names (`_transitions`, `line_items`, `on_hand`).
+  Every run fails the disputed `__contains__` test, which shows the docstring-vs-test
+  conflict rather than a model error.
