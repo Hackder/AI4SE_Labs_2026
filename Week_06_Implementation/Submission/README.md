@@ -1,5 +1,7 @@
 # repo-rag
 
+report: `./report/report.pdf`
+
 Retrieval for repository-aware code generation over `AI4SE_Playground/` (the cloned
 playground repository): AST chunking, embeddings, libSQL native vector search.
 
@@ -29,8 +31,8 @@ From Python: `repo_rag.retrieve.retrieve(task_text, n)` returns `Hit(chunk, scor
 ```sh
 uv run repo-rag generate                                # gpt-6-luna, all of missing_code.json
 uv run repo-rag generate --model gpt-6-luna gpt-5-mini  # one run per model
-uv run repo-rag generate --model gpt-6-luna --no-tests  # ablation: no test chunks retrieved
-uv run repo-rag generate --model gpt-6-luna -n 0        # ablation: no retrieval (stub only)
+uv run repo-rag generate --model gpt-6-luna --no-tests  # variation: no test chunks retrieved
+uv run repo-rag generate --model gpt-6-luna -n 0        # variation: no retrieval (stub only)
 uv run repo-rag generate --model fake                   # offline: answers with a non-solution
 uv run repo-rag compare                                 # table over all runs -> output/runs/comparison.md
 ```
@@ -64,8 +66,7 @@ target methods x runs (`k/N` = tests calling the method that pass).
 - `src/repo_rag/generate.py`: the Task 5 pipeline (`run_generation`) and `compare_runs`
 - `src/repo_rag/cli.py`: `chunk`, `index`, `query`, `generate`, `compare` commands
 - `typings/libsql/`: minimal type stub for the untyped libsql extension
-- `output/chunks.jsonl`: the chunks (Task 2 output); `output/*.db` is generated, not committed
-- `NOTES.md`: clone mechanism, baseline test run, design notes for the report
+- `output/chunks.jsonl`: the chunks (Task 2 output); `output/index.db` is the committed bge-small index (Task 3 output); other `output/*.db` files are not committed
 
 ## Checks
 

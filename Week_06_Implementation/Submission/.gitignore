@@ -1,2 +1,3 @@
 output/*.db
+!output/index.db
 output/runs/*/playground/
