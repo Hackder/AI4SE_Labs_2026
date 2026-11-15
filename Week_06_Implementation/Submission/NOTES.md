@@ -1,0 +1,73 @@
+# Working notes (input for the report)
+
+## Task 1: how the clone was made
+
+- The coding agent (Claude Code) ran `git clone https://github.com/Neltharion59/AI4SE_Playground`
+  through its **Bash tool**, i.e. a shell command on the local machine. The agent has no
+  built-in "clone" feature; it only issues shell commands.
+- The command used the locally installed **git binary** (`/opt/homebrew/bin/git`, git 2.56.0).
+- **Network access** from the agent's shell to github.com was allowed.
+- The repository is **public**, so no credentials were needed in principle. In practice the
+  user's global `~/.gitconfig` has `url.git@github.com:.insteadof https://github.com/`, so git
+  silently rewrote the HTTPS URL to SSH (`git@github.com:Neltharion59/AI4SE_Playground`) and
+  authenticated with the user's existing SSH key in `~/.ssh` (the ssh-agent held no identities,
+  so the default key file was used). The agent did not configure any of this.
+- **Permission prompt:** none was shown to the agent; the command ran directly under the
+  session's permission mode. (Whether the user saw an approval prompt is not visible from
+  inside the agent.)
+- Afterwards the agent deleted the clone's `.git` directory (`rm -rf AI4SE_Playground/.git`) so
+  the files are tracked as plain files in this repository. Upstream commit at clone time:
+  `b17f753 Init`. Size without `.git`: 220 KB, 28 files.
+
+The clone lives in `AI4SE_Playground/`; paths in `../Assignments/missing_code.json`
+(`playground/playground/enums.py`, ...) are relative to that directory.
+
+## Baseline playground tests (before any patching)
+
+Run from `AI4SE_Playground/playground/` (the package `playground` and `tests/` live there; the
+tests are stdlib `unittest`, no extra dependencies):
+
+```sh
+cd AI4SE_Playground/playground
+../../.venv/bin/python -m unittest discover     # or: ../../.venv/bin/python -m pytest -q
+```
+
+Python 3.14.9: 481 tests, 429 pass, 52 fail (unittest: 35 failures + 17 errors). The failures
+are the 10 `pass` stubs from `missing_code.json` and the code that depends on them (orders,
+pricing, simulation, ...).
+
+## Task 2: chunking decisions
+
+- **Granularity:** AST structure, not fixed-size windows. A function or method is the unit the
+  generator needs to see and the unit `missing_code.json` asks for.
+- **Small classes (<= 40 lines) stay whole**; larger classes become a `class_header` chunk
+  (signature, docstring, class attributes, method signatures) plus one `method` chunk per
+  method. Each method chunk starts with the class signature and first docstring line, so the
+  embedding and the LLM know which class it belongs to.
+- **Module-level code** (docstring, imports, constants) is one `module` chunk per file; it
+  shows the imports a generated method may rely on.
+- **Non-Python files** (only `.gitignore`) are skipped.
+- **Tests are included** and flagged `is_test`: they are part of the repository the agent works
+  in and show how the target methods are called, which is useful usage context; retrieval can
+  exclude them (`--no-tests`) to measure how much they help versus leak expected behaviour.
+- **Target stubs get no chunk of their own:** a bare-`pass` method has only its signature,
+  which the class/header chunk already shows; as its own chunk it would be a near-duplicate of
+  the query and waste a top-5 slot.
+- Result: 538 chunks (141 source, 397 test); kinds: 404 method, 63 class, 36 class header,
+  26 module, 9 function. Text size median ~270 chars (~70 tokens), p90 ~790, max ~2 000 chars,
+  well under any embedding model input limit.
+
+## Task 3/4: storage and retrieval
+
+- libSQL (`libsql` 0.1.11 Python package, works on Python 3.14) in a local file
+  `output/index.db`. Column `embedding F32_BLOB(dim)`, vectors inserted with `vector32(?)`
+  (JSON array text), DiskANN index
+  `libsql_vector_idx(embedding, 'metric=cosine', 'compress_neighbors=float8', 'max_neighbors=32')`.
+- Query: `vector_top_k('chunks_embedding_idx', vector32(?), n)` joined back on `rowid`, scored
+  with `1 - vector_distance_cos(...)`. `--exact` (and `--no-tests`, which needs a WHERE filter)
+  use a plain `ORDER BY vector_distance_cos(...) LIMIT n` scan.
+- Index size: with libSQL's default index settings a 1536-dim index over ~540 rows is ~170 MB;
+  the options above bring it to ~35 MB with the same recall@10 on a random test set. The
+  database is regenerable and gitignored.
+- The `meta` table records `embedding_model`, `dim` and `chunk_count`; the query side embeds
+  with the recorded model. Compare models by indexing into separate files with `--db`.
