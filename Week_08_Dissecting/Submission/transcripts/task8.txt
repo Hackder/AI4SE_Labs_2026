@@ -1,0 +1,36 @@
+ ▐▛███▛█   Claude Code v2.1.332
+▝▜██████▀  Opus 5.5
+ ▝▝   ▝▝   ~/…/vibecoding/AI4SE_Labs_2026/Week_08_Dissecting/Submission
+
+
+❯ write a tiny script that prints the number of screenshots in screenshots/     
+
+  Listed 1 directory (ctrl+o to expand)
+
+⏺ Write(count_screenshots.sh)
+  ⎿  Wrote 5 lines to count_screenshots.sh
+      1 #!/bin/sh
+      2 # Created by Claude Code (Opus 5.5)
+      3 # Prints the number of screenshots in screenshots/ (relative to t
+        his script).
+      4 dir="$(dirname "$0")/screenshots"
+      5 find "$dir" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jp
+        eg' -o -iname '*.png' \) | wc -l | tr -d ' '
+
+⏺ Bash(chmod +x count_screenshots.sh && ./count_screenshots.sh)
+  ⎿  9
+  ⎿  1 file changed (binary, mode only or too large to show)
+     count_screenshots.sh
+
+⏺ I added count_screenshots.sh. I ran it and it prints 9, which is how many
+  files are in screenshots/ right now.
+
+  - Usage: ./count_screenshots.sh
+  - What it counts: only .jpg, .jpeg and .png files directly inside screenshots/
+    (no subfolders), so stray files like .DS_Store aren't counted.
+  - Path: it finds screenshots/ from where the script lives, so it works from
+    any directory.
+
+  Files touched: count_screenshots.sh
+
+✻ Crunched for 9s · done 11:19 PM

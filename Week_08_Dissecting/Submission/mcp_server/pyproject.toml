@@ -1,0 +1,13 @@
+[project]
+name = "grades-mcp"
+version = "0.1.0"
+description = "MCP server with one tool: summarize graded points from the lab Assessments/ folder"
+requires-python = "==3.14.*"
+dependencies = ["mcp>=2.3.0"]
+
+[project.scripts]
+grades-mcp = "grades_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

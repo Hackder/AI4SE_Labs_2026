@@ -1,0 +1,37 @@
+[project]
+name = "week08-submission"
+version = "0.1.0"
+description = "Week 08 workspace root"
+requires-python = "==3.14.*"
+dependencies = ["grades-mcp"]
+
+[tool.uv]
+package = false
+# Supply-chain caution: only releases at least ~2 weeks old.
+exclude-newer = "2026-11-12T00:00:00Z"
+
+[tool.uv.sources]
+grades-mcp = { workspace = true }
+
+[tool.uv.workspace]
+members = ["mcp_server"]
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.40.2",
+    "ruff>=0.17.2",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.basedpyright]
+typeCheckingMode = "strict"
+include = ["mcp_server/src"]
+pythonVersion = "3.14"
+venvPath = "."
+venv = ".venv"
